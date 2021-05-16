@@ -1,4 +1,4 @@
-#include "tst.h"
+#include "MoveSprite.h"
 
 USING_NS_CC;
 bool MoveSprite::init()
@@ -10,10 +10,9 @@ bool MoveSprite::init()
     {
         return false;
     }
-    auto btn = Sprite::create("MarioNSMBUDeluxe.png");
-    this->addChild(btn);
+    auto msprite = Sprite::create();
+    this->addChild(msprite);
     auto _mouseListener = EventListenerMouse::create();
-   // _mouseListener->onMouseMove = CC_CALLBACK_1(MoveSprite::onMouseMove, this);
     _mouseListener->onMouseDown = CC_CALLBACK_1(MoveSprite::onMouseDown, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(_mouseListener, this);
 

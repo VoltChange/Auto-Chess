@@ -3,6 +3,7 @@
 #define __MOVE_SPRITE_H__
 
 #include "cocos2d.h"
+#include <string>
 class MoveSprite : public cocos2d::Sprite
 {
 public:
