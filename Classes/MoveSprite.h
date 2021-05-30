@@ -18,6 +18,5 @@ public:
     CREATE_FUNC(MoveSprite);
     static MoveSprite* create(const std::string& filename);
 private:
-    int tset;
 };
 #endif
