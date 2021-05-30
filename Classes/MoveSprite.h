@@ -16,5 +16,8 @@ public:
    // void marioVes(Ref* pSender);
     // implement the "static create()" method manually
     CREATE_FUNC(MoveSprite);
+    static MoveSprite* create(const std::string& filename);
+private:
+    int tset;
 };
 #endif
