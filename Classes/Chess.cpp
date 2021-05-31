@@ -88,14 +88,15 @@ void Chess::SetFlySpeed (double data)
 {
 	flyspeed = data;
 }
-void Chess::PointInit(Attack* data)
+void Chess::PointInit()
 {
-	data = Attack::create();
+	p_attack = Attack::create(name);
 }
 //
 void Chess::AttackTo(Vec2 position)
 {
-	this->getParent()->addChild(p_attack);
+	this->getParent()->addChild(p_attack);//
+	p_attack->setPosition(this->getPosition());
 	Vec2 present_position = p_attack->getPosition();
 	double distance=sqrt(pow(position.x - present_position.x, 2) + pow(position.y - present_position.y, 2));//计算距离
 	float time = distance / flyspeed;//算出攻击物需要的时间
@@ -112,7 +113,7 @@ void Chess::AttackTarget(Chess* target)
 	{
 		target->ReduceHp();
 	}
-	p_attack->removeFromParent();//解除关系
+//	p_attack->removeFromParent();//解除关系
 }
 void Chess::ReduceHp()
 {

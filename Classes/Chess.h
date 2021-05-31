@@ -29,7 +29,7 @@ public:
 	void SetAtkRange(double data);
 	void SetName(std::string data);
 	void SetFlySpeed(double data);
-	void PointInit(Attack* data);
+	void PointInit();
 	void AttackTo(Vec2 position);//生成攻击物移动至目标位置，可能需求写一个攻击物类，参照本类写法，攻击物类应有攻击物的飞行速度
 	void AttackTarget(Chess* target);//攻击函数，传入一个目标棋子的指针，获取目标棋子的位置，调用上面的函数生成一个攻击物移动至目标棋子位置，到达后目标旗子扣血
 	void ReduceHp();
