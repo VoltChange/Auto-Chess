@@ -2,25 +2,26 @@
 
 bool Chess::init()
 {
-    //////////////////////////////
-    // 1. super init first
-    if (!Sprite::init())
-    {
-        return false;
-    }
-    return true;
+	//////////////////////////////
+	// 1. super init first
+	if (!Sprite::init())
+	{
+		return false;
+	}
+	return true;
 }
+
 Chess* Chess::create(const std::string& filename)
 {
-    Chess* sprite = new (std::nothrow) Chess();
-    if (sprite && sprite->initWithFile(filename+".png"))
-    {
-        sprite->autorelease();
-        sprite->SetName(filename);
-        return sprite;
-    }
-    CC_SAFE_DELETE(sprite);
-    return nullptr;
+	Chess* sprite = new (std::nothrow) Chess();
+	if (sprite && sprite->initWithFile(filename + ".png"))
+	{
+		sprite->autorelease();
+		sprite->SetName(filename);
+		return sprite;
+	}
+	CC_SAFE_DELETE(sprite);
+	return nullptr;
 }
 //
 double Chess::ShowAtk()
@@ -45,11 +46,15 @@ double Chess::ShowHp()
 }
 double Chess::ShowAtkRange()
 {
-    return atkrange;
+	return atkrange;
 }
-std::string Chess:: ShowName()
+double Chess::ShowFlySpeed()
 {
-    return name;
+	return flyspeed;
+}
+std::string Chess::ShowName()
+{
+	return name;
 }
 void Chess::SetAtk(double data)
 {
@@ -73,65 +78,92 @@ void Chess::SetHp(double data)
 }
 void Chess::SetAtkRange(double data)
 {
-    atkrange = data;
+	atkrange = data;
 }
 void Chess::SetName(std::string data)
 {
-    name = data;
+	name = data;
+}
+void Chess::SetFlySpeed (double data)
+{
+	flyspeed = data;
+}
+void Chess::PointInit(Attack* data)
+{
+	data = Attack::create();
 }
 //
 void Chess::AttackTo(Vec2 position)
 {
-
+	this->getParent()->addChild(p_attack);
+	Vec2 present_position = p_attack->getPosition();
+	double distance=sqrt(pow(position.x - present_position.x, 2) + pow(position.y - present_position.y, 2));//è®¡ç®—è·ç¦»
+	float time = distance / flyspeed;//ç®—å‡ºæ”»å‡»ç‰©éœ€è¦çš„æ—¶é—´
+	auto attack_move = MoveTo::create(time,position);
+	p_attack->runAction(attack_move);
 }
 void Chess::AttackTarget(Chess* target)
 {
-
+	Vec2 target_position = target->getPosition();
+	AttackTo(target_position);
+	Vec2 present_position = p_attack->getPosition();
+	double distance = sqrt(pow(target_position.x - present_position.x, 2) + pow(target_position.y - present_position.y, 2));//è®¡ç®—è·ç¦»
+	if (distance <= 2.0)//æ”»å‡»ç‰©å®Œæˆæ”»å‡»ä¹‹åç¦»ç›®æ ‡ç‰©çš„è·ç¦»
+	{
+		target->ReduceHp();
+	}
+	p_attack->removeFromParent();//è§£é™¤å…³ç³»
+}
+void Chess::ReduceHp()
+{
+	double Hp = ShowHp();
+	Hp -= 2;//2æ˜¯éšä¾¿å†™çš„
+	SetHp(Hp);
 }
 
 void Chess::MoveTo(Vec2 position)
 {
-    double distance = sqrt(pow(position.x-this->getPositionX(),2)+ pow(position.y - this->getPositionY(), 2));//¼ÆËã¾àÀë
-    const double angle = 30;
-    auto move = MoveTo::create(distance / movespeed, position);//ÒÆ¶¯¶¯×÷
-    //´´½¨»Î¶¯¶¯×÷ĞòÁĞ
-    auto rotate1 = RotateBy::create(distance / movespeed / 4 / 2, angle);
-    auto rotate2 = RotateBy::create(distance / movespeed / 4, -angle * 2);
-    auto rotate3 = RotateBy::create(distance / movespeed / 4, angle * 2);
-    auto rotate4 = RotateBy::create(distance / movespeed / 4, -angle * 2);
-    auto rotate5 = RotateBy::create(distance / movespeed / 4 / 2, angle);
-    auto seq1 = Sequence::createWithTwoActions(rotate1, rotate2);
-    auto seq2 = Sequence::createWithTwoActions(rotate3, rotate4);
-    auto seq3 = Sequence::createWithTwoActions(seq1,seq2);
-    auto seq4 = Sequence::createWithTwoActions(seq3, rotate5);
-    //ÒÆ¶¯ºÍ»Î¶¯Í¬Ê±ĞòÁĞ
-    auto spa = Spawn::createWithTwoActions(seq4, move);
-    this->runAction(spa);
+	double distance = sqrt(pow(position.x - this->getPositionX(), 2) + pow(position.y - this->getPositionY(), 2));//è®¡ç®—è·ç¦»
+	const double angle = 30;
+	auto move = MoveTo::create(distance / movespeed, position);//ç§»åŠ¨åŠ¨ä½œ
+	//åˆ›å»ºæ™ƒåŠ¨åŠ¨ä½œåºåˆ—
+	auto rotate1 = RotateBy::create(distance / movespeed / 4 / 2, angle);
+	auto rotate2 = RotateBy::create(distance / movespeed / 4, -angle * 2);
+	auto rotate3 = RotateBy::create(distance / movespeed / 4, angle * 2);
+	auto rotate4 = RotateBy::create(distance / movespeed / 4, -angle * 2);
+	auto rotate5 = RotateBy::create(distance / movespeed / 4 / 2, angle);
+	auto seq1 = Sequence::createWithTwoActions(rotate1, rotate2);
+	auto seq2 = Sequence::createWithTwoActions(rotate3, rotate4);
+	auto seq3 = Sequence::createWithTwoActions(seq1, seq2);
+	auto seq4 = Sequence::createWithTwoActions(seq3, rotate5);
+	//ç§»åŠ¨å’Œæ™ƒåŠ¨åŒæ—¶åºåˆ—
+	auto spa = Spawn::createWithTwoActions(seq4, move);
+	this->runAction(spa);
 }
 void Chess::MoveTarget(Chess* target)
 {
-    auto position = target->getPosition();//»ñÈ¡Ä¿±êÎ»ÖÃ
-    double distance = sqrt(pow(position.x - this->getPositionX(), 2) + pow(position.y - this->getPositionY(), 2));//¼ÆËã¾àÀë
-    auto unitvector = Vec2(position.x - this->getPositionX() , position.y - this->getPositionY() ) / distance;//¼ÆËãµ¥Î»ÏòÁ¿
-    double movedistance;//¸ù¾İ¹¥»÷¾àÀëºÍÄ¿±êÆå×ÓÎ»ÖÃ¼ÆËãÒªÒÆ¶¯µÄÎ»ÖÃ
-    if (distance - atkrange > 0)
-    {
-        movedistance = distance - atkrange;
-    }
-    else
-    {
-        movedistance = 0;
-    }
-    auto targetposition = unitvector * movedistance + this->getPosition();
-    this->MoveTo(targetposition);
+	auto position = target->getPosition();//è·å–ç›®æ ‡ä½ç½®
+	double distance = sqrt(pow(position.x - this->getPositionX(), 2) + pow(position.y - this->getPositionY(), 2));//è®¡ç®—è·ç¦»
+	auto unitvector = Vec2(position.x - this->getPositionX(), position.y - this->getPositionY()) / distance;//è®¡ç®—å•ä½å‘é‡
+	double movedistance;//æ ¹æ®æ”»å‡»è·ç¦»å’Œç›®æ ‡æ£‹å­ä½ç½®è®¡ç®—è¦ç§»åŠ¨çš„ä½ç½®
+	if (distance - atkrange > 0)
+	{
+		movedistance = distance - atkrange;
+	}
+	else
+	{
+		movedistance = 0;
+	}
+	auto targetposition = unitvector * movedistance + this->getPosition();
+	this->MoveTo(targetposition);
 }
 void Chess::Reverse(int flag)
 {
-    this->setTexture(name+(flag ? "1" : "0") + ".png"); 
+	this->setTexture(name + (flag ? "1" : "0") + ".png");
 }
 void Chess::Test(cocos2d::Ref* pSender)
 {
-    this->Reverse(0);
-    this->SetMoveSpeed(200);
-    this->MoveTo(Vec2(1000, 350));
+	this->Reverse(0);
+	this->SetMoveSpeed(200);
+	this->MoveTo(Vec2(1000, 350));
 }
