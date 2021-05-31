@@ -5,40 +5,48 @@
 #include "cocos2d.h"
 #include <string>
 #include <cmath>
+#include "Attack.h"
 USING_NS_CC;
 class Chess : public cocos2d::Sprite
 {
 public:
-    CREATE_FUNC(Chess);
-    virtual bool init();
-    static Chess* create(const std::string& filename);
-    double ShowHp();
-    double ShowAtk();
-    double ShowAtkSpeed();
-    double ShowMoveSpeed();
-    double ShowDef();
-    double ShowAtkRange();
-    std::string ShowName();
-    void SetHp(double data);
-    void SetAtk(double data);
-    void SetAtkSpeed(double data);
-    void SetMoveSpeed(double data);
-    void SetDef(double data);
-    void SetAtkRange(double data);
-    void SetName(std::string data);
-    void AttackTo(Vec2 position);//Éú³É¹¥»÷ÎïÒÆ¶¯ÖÁÄ¿±êÎ»ÖÃ£¬¿ÉÄÜĞèÇóĞ´Ò»¸ö¹¥»÷ÎïÀà£¬²ÎÕÕ±¾ÀàĞ´·¨£¬¹¥»÷ÎïÀàÓ¦ÓĞ¹¥»÷ÎïµÄ·ÉĞĞËÙ¶È
-    void AttackTarget(Chess* target);//¹¥»÷º¯Êı£¬´«ÈëÒ»¸öÄ¿±êÆå×ÓµÄÖ¸Õë£¬»ñÈ¡Ä¿±êÆå×ÓµÄÎ»ÖÃ£¬µ÷ÓÃÉÏÃæµÄº¯ÊıÉú³ÉÒ»¸ö¹¥»÷ÎïÒÆ¶¯ÖÁÄ¿±êÆå×ÓÎ»ÖÃ£¬µ½´ïºóÄ¿±êÆì×Ó¿ÛÑª
-    void Reverse(int);
-    void MoveTo(Vec2 position);//Æå×ÓÒÆ¶¯ÖÁÄ¿±êÎ»ÖÃ
-    void MoveTarget(Chess* target);//¸ù¾İÄ¿±êÆå×ÓÎ»ÖÃ¾ö¶¨ÒªÒÆ¶¯µ½µÄÎ»ÖÃ
-    void Test(cocos2d::Ref* pSender);//ÓÃÓÚµ÷ÊÔµÄ»Øµ÷º¯Êı
+	CREATE_FUNC(Chess);
+	virtual bool init();
+	static Chess* create(const std::string& filename);
+	double ShowHp();
+	double ShowAtk();
+	double ShowAtkSpeed();
+	double ShowMoveSpeed();
+	double ShowDef();
+	double ShowAtkRange();
+	double ShowFlySpeed();
+	std::string ShowName();
+	void SetHp(double data);
+	void SetAtk(double data);
+	void SetAtkSpeed(double data);
+	void SetMoveSpeed(double data);
+	void SetDef(double data);
+	void SetAtkRange(double data);
+	void SetName(std::string data);
+	void SetFlySpeed(double data);
+	void PointInit(Attack* data);
+	void AttackTo(Vec2 position);//ç”Ÿæˆæ”»å‡»ç‰©ç§»åŠ¨è‡³ç›®æ ‡ä½ç½®ï¼Œå¯èƒ½éœ€æ±‚å†™ä¸€ä¸ªæ”»å‡»ç‰©ç±»ï¼Œå‚ç…§æœ¬ç±»å†™æ³•ï¼Œæ”»å‡»ç‰©ç±»åº”æœ‰æ”»å‡»ç‰©çš„é£è¡Œé€Ÿåº¦
+	void AttackTarget(Chess* target);//æ”»å‡»å‡½æ•°ï¼Œä¼ å…¥ä¸€ä¸ªç›®æ ‡æ£‹å­çš„æŒ‡é’ˆï¼Œè·å–ç›®æ ‡æ£‹å­çš„ä½ç½®ï¼Œè°ƒç”¨ä¸Šé¢çš„å‡½æ•°ç”Ÿæˆä¸€ä¸ªæ”»å‡»ç‰©ç§»åŠ¨è‡³ç›®æ ‡æ£‹å­ä½ç½®ï¼Œåˆ°è¾¾åç›®æ ‡æ——å­æ‰£è¡€
+	void ReduceHp();
+	void Reverse(int);
+	void MoveTo(Vec2 position);//æ£‹å­ç§»åŠ¨è‡³ç›®æ ‡ä½ç½®
+	void MoveTarget(Chess* target);//æ ¹æ®ç›®æ ‡æ£‹å­ä½ç½®å†³å®šè¦ç§»åŠ¨åˆ°çš„ä½ç½®
+	void Test(cocos2d::Ref* pSender);//ç”¨äºè°ƒè¯•çš„å›è°ƒå‡½æ•°
 private:
-    double healthpoint; //HP
-    double attack;      //¹¥»÷Á¦
-    double atkspeed;    //¹¥»÷ËÙ¶È
-    double movespeed;   //ÒÆ¶¯ËÙ¶È
-    double defence;     //·ÀÓùÁ¦
-    double atkrange;    //¹¥»÷¾àÀë
-    std::string name;   //¿¨ÅÆÃû
+	double healthpoint; //HP
+	double attack;      //æ”»å‡»åŠ›
+	double atkspeed;    //æ”»å‡»é€Ÿåº¦
+	double movespeed;   //ç§»åŠ¨é€Ÿåº¦
+	double defence;     //é˜²å¾¡åŠ›
+	double atkrange;    //æ”»å‡»è·ç¦»
+	double flyspeed;    //æ”»å‡»ç‰©çš„é£è¡Œé€Ÿåº¦
+	std::string name;   //å¡ç‰Œå
+	Attack* p_attack;
 };
+
 #endif
