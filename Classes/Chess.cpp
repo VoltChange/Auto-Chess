@@ -99,7 +99,7 @@ void Chess::AttackTo(Vec2 position)
 	p_attack->setPosition(this->getPosition());
 	Vec2 present_position = p_attack->getPosition();
 	double distance=sqrt(pow(position.x - present_position.x, 2) + pow(position.y - present_position.y, 2));//计算距离
-	float time = distance / flyspeed;//算出攻击物需要的时间
+	double time = distance / flyspeed;//算出攻击物需要的时间
 	auto attack_move = MoveTo::create(time,position);
 	p_attack->runAction(attack_move);
 }
