@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.6.0" orientation="orthogonal" renderorder="right-down" width="80" height="60" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="1">
+<map version="1.5" tiledversion="1.6.0" orientation="orthogonal" renderorder="right-down" width="130" height="80" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="1">
  <tileset firstgid="1" source="blocks.tsx"/>
  <tileset firstgid="769" source="special.tsx"/>
- <layer id="2" name="background" width="80" height="60" locked="1" opacity="0.74">
+ <layer id="2" name="background" width="130" height="80" locked="1" opacity="0.74">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3DMQ0AAAwDoM6/0Nqoi12Q0EuqqqqqqqqqqqqqqqqqqqqqqqqqTwcAx4QFAEsAAA==
+   H4sIAAAAAAAACu3DMQ0AAAwDoM6/rBqrh92Q0Euqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq6vsAvpooqICiAAA=
   </data>
  </layer>
- <layer id="1" name="fight" width="80" height="60" locked="1" opacity="0.88">
+ <layer id="1" name="fight" width="130" height="80" locked="1" opacity="0.88">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3Wt62CYRSD4f8rgbsIYQm4NIQlCA1hCcIihEHxCkcUttD7SK7cnMo6XQcAAADAZarMlH9lrvRa1/WVgfLX8vo0G2Wr7JS9MtTNI2WsTFpen+aiXJWbclcWunmprJR1y+vTPJSn8lLeykE3H5WTcm55fRr3nlX7NO49q/Zp3HtW7dO496zap3HvWbVP496zap/GvWfVPo17z6p9Gvee8f/x/yXvHf8f/19Sn8a9Z9U+jXvPqn0a955V+zTuPeP/4/9L3jv+P/6/pD6Ne8+qfRr3nlX7NO49q/Zp3HvG/8f/l7x3/H+//f8BAAAAAAAAAIDvfQCv/2r5AEsAAA==
+   H4sIAAAAAAAACu3Yt20FUQwEwLtQphGZJmQSfakJmUSmCZlGZAoVC2B2+I+8wwyw0WZMFuA0AQAAAAAAAAAAwHpdRC4jV5HryME8TYeRo8jxvL2e3H3kIfIYeYqcxO1OI2eR83l7Pbn3yEfkM/IVuYnb7SK3kbt5ez2578hP5DfyF3mO271EXiNv8/Z6ctV7PbonV73Xo3ty1Xs9uidXvdeje3JL93ZtPbmle7u2nty+97hbT656r0f35Kr32v+gh+q99j/ooXqv/Q96qN5r/4Melu7t2npyS/d2bT25fe9xt55c9V6P7slV77X/QQ/Ve+1/0EP1Xvsf9FC91/4HPSzd27X15Jbu7dp6cvve4249ueq9Ht2Tq95r/4Meqvfa/6CH6r32P+iheq/9DwAAAAAAAAAAAAAAAAAAoI9/jr/WeICiAAA=
   </data>
  </layer>
- <layer id="3" name="prepare" width="80" height="60" locked="1" opacity="0.83">
+ <layer id="3" name="prepare" width="130" height="80" locked="1" opacity="0.83">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3OwRGCUBBEwb9iIgiJoCSikH8MTASet4ruqneY24wBAAAAAAAAAAAAAAAAAPBf1RiPNKVn9d/dzPn0Sktaq//uZsund/qkvfrvbr759EtHOqv/BgAA4B4uTc7MHQBLAAA=
+   H4sIAAAAAAAACu3QwRGCQBREwf1gIgKJoCYCmn8MTAB79LR0V73DXKc1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4F+qWpvSnB41/qbvmW+WtKatxt/07fnmld7pU+Nv+o58c6Zv+tX4GwAAAAAAAAAAAADu7AIF9y2jgKIAAA==
   </data>
  </layer>
- <layer id="5" name="special" width="80" height="60">
+ <layer id="5" name="special" width="130" height="80">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3U104WQRiH8QEBEQgEzsAG6glFKXoLVlREROqNIBbaLYAF7NJRwAYKN2ChWG4FRaU9HpJMMmz2C9ns/J/kd/Qmm8yb2TFGKaWUUkoppZRSKtqNZhszhnFMZCd+Hvf+cOa/+Ic1y/nDzuPe+RxjLqAaF3MSP4979znzA/RjwHL+sHPfmuYffI03eGv5H11z30viDiVjD1Is98k1971adnIVdbhm2Y9r7ntP2ckzPMcLy35cc7W9D7xxHzGHeb13gdvHHctAJrJ03wLXxM6a0YJW7S9wo+xsDOOY0P4C94437z1mMKv3L3Cp3Lk07EW67l/g6tnZdTSgUfsL3CA7G8IwRrQ/Zy95415hElOW98419711drKBzf+7sdw319z3LrGTy6jBFct+XHPfe8hOHuExnlj245r71iD/4RCGMWJ5z8LO494KZ/6F31i1nD/sPO6d5h88g7M4Z/kfw87jXi9n7sNd3LOcP+xcKaWUUkqpKHc815gTKEcFilGCUpShElU4iVO5u/+9qHeLM9zGHXSgDTfQjpvoRBe60bOD8yb6e1FvgTMsYgnL+ITP+IKv+Ibv+IGfOzhvor8X9Q7mGXMIh1GIfBRgPw6gCEdwFMfydv97SimllFJKKaX8bAsBvncRAEsAAA==
+   H4sIAAAAAAAACu3XR24UQRhA4TI5yZa9I5uwAZPhCmQwOXMRk9MVyNEG2ziQc7gAOV6FHJ9XbAr1SD0aq7rfJ73Vv2hr/umacgiSJEmSJEmSJEmSJEmSJEmSJOl/eupD6KU+6q+v/lxp+MbuvtMP+hnZY9650rCyIYRVtJrWNFR/rjScZndn6Cydi+wx71xpusXZfpvu0N3IOZ81VzHU8U4PoaE0LPJ+Z81VDBvY7UbaRJsje86aqxja2W0HXaYrkT1nzVVMj7gDPKYn9NT7QGmN5p0fQ2NpnO9/ae1g9ztpF+32e1BaPey+l/qo3+9Bad3jTnCfHtBD7welNZwzYASNpFGeB6W1hd1vpW203e9BaXWy+y7qHvi/oW6w/xrVyjXuANfpBt2M3Aey5iqGX+z2N/0Z2HHkdyBrrmJYy25baR2tj+w5a65iOM9uL9BFuhTZc9ZcaerkfO+ibroa+b3PO1caPrG7z/SFvkb2mHeuNCzlbF9Gy2lF5JzPO1cajrO7E3SSTkX2mHcuSZIkSZKkwTG3MYR5NJ8W0CyaTS00hxbSIlpMSxrTe54qs5/P+gAdpEPURntoL+2jw3SEjtKxKuyl1s9TZV7xWb+mN/SWntFzekEv6R29pw/0sQp7qfXzVJnJTSFMoanUTONpAk2kSTSNptMMmtmU3vMkSZIkSZIkSZIkSZIkSZIk/fMXeg64EICiAAA=
   </data>
  </layer>
 </map>
