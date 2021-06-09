@@ -52,6 +52,14 @@ double Chess::ShowFlySpeed()
 {
 	return flyspeed;
 }
+int Chess::IsDead()
+{
+	return isdead;
+}
+int Chess::IsOn()
+{
+	return ison;
+}
 std::string Chess::ShowName()
 {
 	return name;
@@ -88,6 +96,14 @@ void Chess::SetFlySpeed (double data)
 {
 	flyspeed = data;
 }
+void Chess::SetDead(int flag)
+{
+	isdead = flag;
+}
+void Chess::SetOn(int flag)
+{
+	ison = flag;
+}
 void Chess::PointInit()
 {
 	p_attack = Attack::create(name);
@@ -99,7 +115,7 @@ void Chess::AttackTo(Vec2 position)
 	p_attack->setPosition(this->getPosition());
 	Vec2 present_position = p_attack->getPosition();
 	double distance=sqrt(pow(position.x - present_position.x, 2) + pow(position.y - present_position.y, 2));//计算距离
-	double time = distance / flyspeed;//算出攻击物需要的时间
+	float time = distance / flyspeed;//算出攻击物需要的时间
 	auto attack_move = MoveTo::create(time,position);
 	p_attack->runAction(attack_move);
 }
@@ -113,7 +129,7 @@ void Chess::AttackTarget(Chess* target)
 	{
 		target->ReduceHp();
 	}
-//	p_attack->removeFromParent();//解除关系
+	p_attack->removeFromParent();//解除关系
 }
 void Chess::ReduceHp()
 {
