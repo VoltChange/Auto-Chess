@@ -92,7 +92,7 @@ void Chess::SetName(std::string data)
 {
 	name = data;
 }
-void Chess::SetFlySpeed (double data)
+void Chess::SetFlySpeed(double data)
 {
 	flyspeed = data;
 }
@@ -108,34 +108,105 @@ void Chess::PointInit()
 {
 	p_attack = Attack::create(name);
 }
+void Chess::SetAtkTimer(double data)
+{
+	atktimer = data * 60;//60帧数
+}
+void Chess::SetMoveTimer()
+{
+	double distance = CountTheDistance(this->getPosition(), atktarget->getPosition()) - atkrange;
+	movetimer = ((int)(distance / movespeed) + 1) * 60;//60是帧数
+}
+void Chess::SetAtkMark()
+{
+	atkmark = 0;//初始化为0，不攻击
+}
+void Chess::SetMovemark()
+{
+	movemark = 0;
+}
+void Chess::AtkTargetInit(Chess* data)
+{
+	atktarget = data;
+}
 //
 void Chess::AttackTo(Vec2 position)
 {
-	this->getParent()->addChild(p_attack);//
 	p_attack->setPosition(this->getPosition());
-	Vec2 present_position = p_attack->getPosition();
-	double distance=sqrt(pow(position.x - present_position.x, 2) + pow(position.y - present_position.y, 2));//计算距离
-	float time = distance / flyspeed;//算出攻击物需要的时间
-	auto attack_move = MoveTo::create(time,position);
+	p_attack->setVisible(true);
+	double time = CountTheDistance(position, p_attack->getPosition()) / flyspeed;//算出攻击物需要的时间
+
+	if (CountTheDistance(p_attack->getPosition(), atktarget->getPosition()) < 5)//攻击物离目标的距离
+	{
+		atktarget->ReduceHp();
+	}
+	//攻击物的单个计时器
+	p_attack->setTargetPosition(position);//告诉攻击物目标位置
+	p_attack->PointInit(p_attack);
+	p_attack->scheduleUpdate();//attack内部注册计时器,会自动注销
+
+	//开始攻击
+	auto attack_move = MoveTo::create(time, position);
 	p_attack->runAction(attack_move);
+
+}
+double Chess::CountTheDistance(Vec2 position1, Vec2 position2)
+{
+	return sqrt(pow(position1.x - position2.x, 2)
+		+ pow(position1.y - position2.y, 2));
 }
 void Chess::AttackTarget(Chess* target)
 {
-	Vec2 target_position = target->getPosition();
-	AttackTo(target_position);
-	Vec2 present_position = p_attack->getPosition();
-	double distance = sqrt(pow(target_position.x - present_position.x, 2) + pow(target_position.y - present_position.y, 2));//计算距离
-	if (distance <= 2.0)//攻击物完成攻击之后离目标物的距离
+	SetAtkTimer(atkspeed);//初始化攻击间隔
+
+	//目标不在攻击范围内
+	if (CountTheDistance(this->getPosition(), atktarget->getPosition()) > atkrange)
 	{
-		target->ReduceHp();
+		movemark = 1;//标记正在移动
+		SetMoveTimer();
+		MoveTarget(atktarget);
 	}
-	p_attack->removeFromParent();//解除关系
+
+	this->getParent()->addChild(p_attack);
+	//注册定时器
+	this->scheduleUpdate();
 }
 void Chess::ReduceHp()
 {
 	double Hp = ShowHp();
 	Hp -= 2;//2是随便写的
 	SetHp(Hp);
+}
+void Chess::update(float dt)
+{
+	if (0 == movemark)
+	{
+		static int timer = atktimer;
+		if (atktimer == timer)
+		{
+			atkmark = 1;
+			AttackTo(atktarget->getPosition());//攻击
+		}
+		if (this->isdead || atktarget->isdead)//如果死了就停止攻击
+		{
+			atkmark = 0;
+			p_attack->removeFromParent();
+			this->unscheduleUpdate();
+		}
+		timer--;
+		if (0 == timer)//计时器到零了之后又回复原数，重复攻击
+		{
+			timer = atktimer;
+		}
+	}
+	else if (1 == movemark)
+	{
+		movetimer--;
+		if (movetimer == 0)
+		{
+			movemark = 0;
+		}
+	}
 }
 
 void Chess::MoveTo(Vec2 position)

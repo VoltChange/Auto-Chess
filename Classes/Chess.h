@@ -31,6 +31,12 @@ public:
 	void SetAtkRange(double data);
 	void SetName(std::string data);
 	void SetFlySpeed(double data);
+	void SetAtkTimer(double data);
+	void SetMoveTimer();
+	void SetAtkMark();
+	void SetMovemark();
+	void AtkTargetInit(Chess* data);
+	double CountTheDistance(Vec2 position1, Vec2 position2);//计算两个坐标之间的距离
 	void SetDead(int);
 	void SetOn(int);
 	void PointInit();
@@ -41,6 +47,7 @@ public:
 	void MoveTo(Vec2 position);//棋子移动至目标位置
 	void MoveTarget(Chess* target);//根据目标棋子位置决定要移动到的位置
 	void Test(cocos2d::Ref* pSender);//用于调试的回调函数
+	virtual	void update(float dt);
 private:
 	double healthpoint; //HP
 	double attack;      //攻击力
@@ -51,6 +58,11 @@ private:
 	double flyspeed;    //攻击物的飞行速度
 	std::string name;   //卡牌名
 	Attack* p_attack;   //攻击物指针
+	int atktimer;       //计数器//atktimer=atkspeed*60;
+	int movetimer;      //计数器
+	int atkmark;        //记录是否在攻击//0代表未攻击 1代表攻击中
+	int movemark;       //记录是否在移动//0代表未移动 1代表移动中
+	Chess* atktarget;   //存放目标棋子
 	/// /////////////////////////////////////////////////////////////////////
 	int isdead;         //记录是否死亡
 	int ison;           //记录是否上场
