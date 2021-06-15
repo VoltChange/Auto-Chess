@@ -25,22 +25,18 @@ void Attack::setTargetPosition(Vec2 data)
 {
 	target_position = data;
 }
-void Attack::PointInit(Attack* point)
-{
-	p_attack = point;
-}
 void Attack::setMark()
 {
 	mark = 0;//默认初始未移动
 }
 void Attack::update(float dt)
 {
-	Vec2 present_position = p_attack->getPosition();
+	Vec2 present_position = this->getPosition();
 	double distance = sqrt(pow(target_position.x - present_position.x, 2) + pow(target_position.y - present_position.y, 2));//计算距离
 	if (distance <= 5)//击中
 	{
 		this->unscheduleUpdate();
-		p_attack->setVisible(0);
+		this->setVisible(false);
 		mark = 0;
 	}
 	else//还在飞行中
@@ -48,17 +44,3 @@ void Attack::update(float dt)
 		mark = 1;
 	}
 }
-
-/*
-void Attack::setMark()
-{
-	mark = 0;
-}
-bool Attack::judge()
-{
-	if (2 == mark)
-		return true;
-	else
-		return false;
-}
-*/

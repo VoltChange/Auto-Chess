@@ -104,18 +104,18 @@ void Chess::SetOn(int flag)
 {
 	ison = flag;
 }
+//void Chess::SetMovetime()
 void Chess::PointInit()
 {
 	p_attack = Attack::create(name);
 }
-void Chess::SetAtkTimer(double data)
+double Chess::SetAtkTimer(double data)
 {
-	atktimer = data * 60;//60帧数
+	return data * 60;//60帧数
 }
-void Chess::SetMoveTimer()
+double Chess::SetMoveTimer()
 {
-	double distance = CountTheDistance(this->getPosition(), atktarget->getPosition()) - atkrange;
-	movetimer = ((int)(distance / movespeed) + 1) * 60;//60是帧数
+	return move_time * 60;//60是帧数
 }
 void Chess::SetAtkMark()
 {
@@ -142,7 +142,6 @@ void Chess::AttackTo(Vec2 position)
 	}
 	//攻击物的单个计时器
 	p_attack->setTargetPosition(position);//告诉攻击物目标位置
-	p_attack->PointInit(p_attack);
 	p_attack->scheduleUpdate();//attack内部注册计时器,会自动注销
 
 	//开始攻击
@@ -155,17 +154,12 @@ double Chess::CountTheDistance(Vec2 position1, Vec2 position2)
 	return sqrt(pow(position1.x - position2.x, 2)
 		+ pow(position1.y - position2.y, 2));
 }
-void Chess::AttackTarget(Chess* target)
+void Chess::AttackTarget()
 {
-	SetAtkTimer(atkspeed);//初始化攻击间隔
-
-	//目标不在攻击范围内
-	if (CountTheDistance(this->getPosition(), atktarget->getPosition()) > atkrange)
-	{
-		movemark = 1;//标记正在移动
-		SetMoveTimer();
-		MoveTarget(atktarget);
-	}
+	//初始化攻击间隔
+	standard_atktimer = SetAtkTimer(atkspeed);
+	atktimer = standard_atktimer;
+	SetMovemark();
 
 	this->getParent()->addChild(p_attack);
 	//注册定时器
@@ -179,32 +173,52 @@ void Chess::ReduceHp()
 }
 void Chess::update(float dt)
 {
+	//棋子不在移动
 	if (0 == movemark)
 	{
-		static int timer = atktimer;
-		if (atktimer == timer)
+		//在范围内＆目标不再移动//目标的movemark变更?
+		//发动攻击
+		if (CountTheDistance(this->getPosition(), atktarget->getPosition()) <= atkrange)
 		{
-			atkmark = 1;
-			AttackTo(atktarget->getPosition());//攻击
+			if (standard_atktimer == atktimer)
+			{
+				atkmark = 1;
+				AttackTo(atktarget->getPosition());//攻击
+			}
+
+			atktimer--;
+			if (atktimer <= 0)//计时器到零了之后又回复原数，重复攻击
+			{
+				atktimer = standard_atktimer;
+			}
+
+			if (this->isdead || atktarget->isdead)//如果死了就停止攻击
+			{
+				atkmark = 0;
+				p_attack->removeFromParent();
+				this->unscheduleUpdate();
+			}
 		}
-		if (this->isdead || atktarget->isdead)//如果死了就停止攻击
+
+		//目标不在攻击范围内＆棋子不移动
+		else
 		{
-			atkmark = 0;
-			p_attack->removeFromParent();
-			this->unscheduleUpdate();
-		}
-		timer--;
-		if (0 == timer)//计时器到零了之后又回复原数，重复攻击
-		{
-			timer = atktimer;
+			movemark = 1;//标记正在移动
+			MoveTarget(atktarget);
+			standard_movetimer = SetMoveTimer();
+			movetimer = standard_movetimer;
 		}
 	}
+	//棋子在移动
 	else if (1 == movemark)
 	{
 		movetimer--;
-		if (movetimer == 0)
+		if (movetimer <= 0)
 		{
 			movemark = 0;
+			movetimer = standard_movetimer;
+			standard_atktimer = SetAtkTimer(atkspeed);
+			atktimer = standard_atktimer;
 		}
 	}
 }
@@ -214,6 +228,7 @@ void Chess::MoveTo(Vec2 position)
 	double distance = sqrt(pow(position.x - this->getPositionX(), 2) + pow(position.y - this->getPositionY(), 2));//计算距离
 	const double angle = 30;
 	auto move = MoveTo::create(distance / movespeed, position);//移动动作
+	move_time = distance / movespeed;
 	//创建晃动动作序列
 	auto rotate1 = RotateBy::create(distance / movespeed / 4 / 2, angle);
 	auto rotate2 = RotateBy::create(distance / movespeed / 4, -angle * 2);

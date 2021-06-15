@@ -31,8 +31,8 @@ public:
 	void SetAtkRange(double data);
 	void SetName(std::string data);
 	void SetFlySpeed(double data);
-	void SetAtkTimer(double data);
-	void SetMoveTimer();
+	double SetAtkTimer(double data);
+	double SetMoveTimer();
 	void SetAtkMark();
 	void SetMovemark();
 	void AtkTargetInit(Chess* data);
@@ -41,7 +41,7 @@ public:
 	void SetOn(int);
 	void PointInit();
 	void AttackTo(Vec2 position);//生成攻击物移动至目标位置，可能需求写一个攻击物类，参照本类写法，攻击物类应有攻击物的飞行速度
-	void AttackTarget(Chess* target);//攻击函数，传入一个目标棋子的指针，获取目标棋子的位置，调用上面的函数生成一个攻击物移动至目标棋子位置，到达后目标旗子扣血
+	void AttackTarget();//攻击函数，传入一个目标棋子的指针，获取目标棋子的位置，调用上面的函数生成一个攻击物移动至目标棋子位置，到达后目标旗子扣血
 	void ReduceHp();
 	void Reverse(int);
 	void MoveTo(Vec2 position);//棋子移动至目标位置
@@ -49,23 +49,26 @@ public:
 	void Test(cocos2d::Ref* pSender);//用于调试的回调函数
 	virtual	void update(float dt);
 private:
-	double healthpoint; //HP
-	double attack;      //攻击力
-	double atkspeed;    //攻击速度
-	double movespeed;   //移动速度
-	double defence;     //防御力
-	double atkrange;    //攻击距离
-	double flyspeed;    //攻击物的飞行速度
-	std::string name;   //卡牌名
-	Attack* p_attack;   //攻击物指针
-	int atktimer;       //计数器//atktimer=atkspeed*60;
-	int movetimer;      //计数器
-	int atkmark;        //记录是否在攻击//0代表未攻击 1代表攻击中
-	int movemark;       //记录是否在移动//0代表未移动 1代表移动中
-	Chess* atktarget;   //存放目标棋子
+	double healthpoint;       //HP
+	double attack;            //攻击力
+	double atkspeed;          //攻击速度
+	double movespeed;         //移动速度
+	double defence;           //防御力
+	double atkrange;          //攻击距离
+	double flyspeed;          //攻击物的飞行速度
+	std::string name;         //卡牌名
+	Attack* p_attack;         //攻击物指针
+	double standard_atktimer;    //计数器标准//atktimer=atkspeed*60;
+	double standard_movetimer;   //计数器//
+	double atktimer;             //真正实现计时器功能
+	double movetimer;
+	int atkmark;              //记录是否在攻击//0代表未攻击 1代表攻击中
+	int movemark;             //记录是否在移动//0代表未移动 1代表移动中
+	double move_time;        //移动需要花费的时间//记得初始化
+	Chess* atktarget;         //存放目标棋子
 	/// /////////////////////////////////////////////////////////////////////
-	int isdead;         //记录是否死亡
-	int ison;           //记录是否上场
+	int isdead;               //记录是否死亡
+	int ison;                 //记录是否上场
 };
 
 #endif
