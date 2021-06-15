@@ -35,6 +35,7 @@ public:
 	double SetMoveTimer();
 	void SetAtkMark();
 	void SetMovemark();
+	void SetMoveTime();
 	void AtkTargetInit(Chess* data);
 	double CountTheDistance(Vec2 position1, Vec2 position2);//计算两个坐标之间的距离
 	void SetDead(int);

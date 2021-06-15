@@ -104,7 +104,10 @@ void Chess::SetOn(int flag)
 {
 	ison = flag;
 }
-//void Chess::SetMovetime()
+void Chess::SetMoveTime()
+{
+	move_time = 0;
+}
 void Chess::PointInit()
 {
 	p_attack = Attack::create(name);
@@ -167,9 +170,7 @@ void Chess::AttackTarget()
 }
 void Chess::ReduceHp()
 {
-	double Hp = ShowHp();
-	Hp -= 2;//2是随便写的
-	SetHp(Hp);
+	SetHp(ShowHp() - defence);//血量减去防御力
 }
 void Chess::update(float dt)
 {
@@ -184,6 +185,7 @@ void Chess::update(float dt)
 			{
 				atkmark = 1;
 				AttackTo(atktarget->getPosition());//攻击
+				atktarget->ReduceHp();
 			}
 
 			atktimer--;
@@ -192,7 +194,17 @@ void Chess::update(float dt)
 				atktimer = standard_atktimer;
 			}
 
-			if (this->isdead || atktarget->isdead)//如果死了就停止攻击
+			if ((this->healthpoint)<=0)
+			{
+				this->isdead = 1;//死亡
+			}
+
+			if ((atktarget->healthpoint) <= 0)
+			{
+				atktarget->isdead = 1;//死亡
+			}
+
+			if (this->IsDead() || atktarget->IsDead())//如果死了就停止攻击
 			{
 				atkmark = 0;
 				p_attack->removeFromParent();
