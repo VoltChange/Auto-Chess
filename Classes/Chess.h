@@ -43,7 +43,7 @@ public:
 	void PointInit();
 	void AttackTo(Vec2 position);//生成攻击物移动至目标位置，可能需求写一个攻击物类，参照本类写法，攻击物类应有攻击物的飞行速度
 	void AttackTarget();//攻击函数，传入一个目标棋子的指针，获取目标棋子的位置，调用上面的函数生成一个攻击物移动至目标棋子位置，到达后目标旗子扣血
-	void ReduceHp();
+	void ReduceHp(double atk);
 	void Reverse(int);
 	void MoveTo(Vec2 position);//棋子移动至目标位置
 	void MoveTarget(Chess* target);//根据目标棋子位置决定要移动到的位置

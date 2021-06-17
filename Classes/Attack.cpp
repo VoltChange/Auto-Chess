@@ -29,15 +29,29 @@ void Attack::setMark()
 {
 	mark = 0;//默认初始未移动
 }
+void Attack::PointInit(Chess* atktarget)
+{
+	target = atktarget;
+}
+void Attack::GetAttack(double atk)
+{
+	attack = atk;
+}
+
 void Attack::update(float dt)
 {
 	Vec2 present_position = this->getPosition();
-	double distance = sqrt(pow(target_position.x - present_position.x, 2) + pow(target_position.y - present_position.y, 2));//计算距离
-	if (distance <= 5)//击中
+	if (present_position == target_position)
 	{
+		mark = 0;
 		this->unscheduleUpdate();
 		this->setVisible(false);
-		mark = 0;
+	}
+
+	double distance = sqrt(pow(target_position.x -target->getPositionX(), 2) + pow(target_position.y - target->getPositionY(), 2));//计算距离
+	if (distance <= 5)//击中
+	{
+		target->ReduceHp(attack);
 	}
 	else//还在飞行中
 	{

@@ -139,10 +139,6 @@ void Chess::AttackTo(Vec2 position)
 	p_attack->setVisible(true);
 	double time = CountTheDistance(position, p_attack->getPosition()) / flyspeed;//算出攻击物需要的时间
 
-	if (CountTheDistance(p_attack->getPosition(), atktarget->getPosition()) < 5)//攻击物离目标的距离
-	{
-		atktarget->ReduceHp();
-	}
 	//攻击物的单个计时器
 	p_attack->setTargetPosition(position);//告诉攻击物目标位置
 	p_attack->scheduleUpdate();//attack内部注册计时器,会自动注销
@@ -159,18 +155,20 @@ double Chess::CountTheDistance(Vec2 position1, Vec2 position2)
 }
 void Chess::AttackTarget()
 {
-	//初始化攻击间隔
+	//初始化
 	standard_atktimer = SetAtkTimer(atkspeed);
 	atktimer = standard_atktimer;
 	SetMovemark();
+	p_attack->PointInit(atktarget);
+	p_attack->GetAttack(attack);
 
 	this->getParent()->addChild(p_attack);
 	//注册定时器
 	this->scheduleUpdate();
 }
-void Chess::ReduceHp()
+void Chess::ReduceHp(double atk)
 {
-	SetHp(ShowHp() - defence);//血量减去防御力
+	SetHp(ShowHp() -(atk - defence));//atk是攻击方的攻击力
 }
 void Chess::update(float dt)
 {
@@ -185,7 +183,6 @@ void Chess::update(float dt)
 			{
 				atkmark = 1;
 				AttackTo(atktarget->getPosition());//攻击
-				atktarget->ReduceHp();
 			}
 
 			atktimer--;
@@ -199,12 +196,7 @@ void Chess::update(float dt)
 				this->isdead = 1;//死亡
 			}
 
-			if ((atktarget->healthpoint) <= 0)
-			{
-				atktarget->isdead = 1;//死亡
-			}
-
-			if (this->IsDead() || atktarget->IsDead())//如果死了就停止攻击
+			if (this->IsDead()||atktarget->IsDead())//如果死了就停止攻击
 			{
 				atkmark = 0;
 				p_attack->removeFromParent();
