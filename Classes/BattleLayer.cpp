@@ -73,8 +73,8 @@ void BattleLayer::reset()
 }
 void BattleLayer::imageinit()
 {
-	const int LvS = 3;
-	const int LvE = 1;
+	const int LvS = player_me->getm_lv();
+	const int LvE = player_en->getm_lv();
 	for (int i = 0; i < LvS; i++)
 	{
 		if (self[i]->IsOn())
@@ -93,8 +93,8 @@ void BattleLayer::imageinit()
 void BattleLayer::onbattle()
 {
 	isbattle = 1;
-	const int LvS = 3;
-	const int LvE = 1;
+	const int LvS = player_me->getm_lv();
+	const int LvE = player_en->getm_lv();
 	for (int i = 0; i < LvS; i++)
 	{
 		if (self[i]->IsOn())
@@ -114,8 +114,8 @@ void BattleLayer::onbattle()
 }
 void BattleLayer::start()
 {
-	const int LvS = 3;
-	const int LvE = 1;
+	const int LvS = player_me->getm_lv();
+	const int LvE = player_en->getm_lv();
 	for (int i = 0; i < LvS; i++)
 	{
 		if (self[i]->IsOn() && (!self[i]->IsDead()))
@@ -164,8 +164,8 @@ void BattleLayer::test2()
 }
 int BattleLayer::isend()
 {
-	const int LvS = 2;
-	const int LvE = 1;
+	const int LvS = player_me->getm_lv();
+	const int LvE = player_en->getm_lv();
 	int myon = 0;//????????????????????????????????
 	int mydead = 0;
 	int enon = 0;
@@ -209,8 +209,8 @@ void BattleLayer::end()
 }
 void BattleLayer::searchtarget()
 {
-	const int LvS = 3;
-	const int LvE = 1;
+	const int LvS = player_me->getm_lv();
+	const int LvE = player_en->getm_lv();
 
 	for (int i = 0; i < LvS; i++)
 	{
@@ -251,8 +251,8 @@ void BattleLayer::searchtarget()
 }
 void BattleLayer::destroy()
 {
-	const int LvS = 3;
-	const int LvE = 1;
+	const int LvS = player_me->getm_lv();
+	const int LvE = player_en->getm_lv();
 	
 	for (int i = 0; i < LvS; i++)
 	{
@@ -289,4 +289,27 @@ void BattleLayer::step(float dt)
 	//sprintf(string, "%d", (int)time); //精确到1秒的
 	auto label1 = (Label*)getChildByTag(0);//通过标识找到label
 	label1->setString(string);             //设置字符串
+}
+void BattleLayer::setchessdata()
+{
+	const int LvS = player_me->getm_lv();
+	const int LvE = player_en->getm_lv();
+	cards hero_me = player_me->getMyCard();
+	cards equip_me = player_me->getMyEquipment();
+	cards hero_en = player_en->getMyCard();
+	cards equip_en = player_en->getMyEquipment();
+	for (int i = 0; i < LvS; i++)
+	{
+		if (hero_me.onCard[i].IsOn())
+		{
+			//开始获取数据
+		}
+	}
+	for (int i = 0; i < LvE; i++)
+	{
+		if (hero_en.onCard[i].IsOn())
+		{
+			//开始获取数据
+		}
+	}
 }

@@ -3,6 +3,7 @@
 #define __Battle_Layer_H__
 #include"cocos2d.h"
 #include"Chess.h"
+#include "Play.h"
 #define MaxSquares 6
 USING_NS_CC;
 
@@ -25,10 +26,13 @@ public:
 	void startup();//按下按钮开始
 	virtual	void update(float dt);
 	void step(float dt);//改变时间
+	void setchessdata();//设置棋子数据
 private:
 	Chess* self[MaxSquares];
 	Chess* enemy[MaxSquares];
 	int isbattle;
 	double time; //计时器
+	Play* player_me;
+	Play* player_en;
 };
 #endif
