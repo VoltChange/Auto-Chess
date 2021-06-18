@@ -12,7 +12,7 @@ public:
     //鼠标监听函数
     void onMouseMove(cocos2d::Event* event, cocos2d::EventListenerMouse* listener);
     void onMouseDown(cocos2d::Event* event);
-    void onMouseUp(cocos2d::Event* event,cocos2d::EventListenerMouse*);
+    void onMouseUp(cocos2d::Event* event, cocos2d::EventListenerMouse*);
     //create相关
     CREATE_FUNC(MovableSprite);
     static MovableSprite* create(const std::string& filename);
