@@ -1,21 +1,22 @@
-#include"StoreLayer.h"
+ï»¿#include"StoreLayer.h"
 #include"PauseScene.h"//for test,need delete
 #include"Card.h"
 #include"Play.h"
 
 
 
-bool StoreLayer::init()
+
+bool StoreLayer::init(Play* player)
 {
 	if (!Layer::init())
 		return false;
 	memset(this->preparingAreaOfEquipment, 0, sizeof(this->preparingAreaOfEquipment));
 	memset(this->preparingAreaOfSprite, 0, sizeof(this->preparingAreaOfSprite));
-	
-	player.init();
+
+	player->init();
 	store.randFourCards();
 	this->createMenuItemOfCards(store.allCards);
-	
+
 	return true;
 }
 
@@ -24,12 +25,12 @@ Layer* StoreLayer::createLayer()
 	return StoreLayer::create();
 }
 
-void StoreLayer::createMenuItemOfCards(std::vector<int>&allCards)
+void StoreLayer::createMenuItemOfCards(std::vector<int>& allCards)
 {
-	
-	
+
+
 	auto myLabel = Label::createWithSystemFont("Refresh Store", "Arial", 35);
-	auto myLabel1= Label::createWithSystemFont("Buy EXP", "Arial", 35);
+	auto myLabel1 = Label::createWithSystemFont("Buy EXP", "Arial", 35);
 	refreshCard = MenuItemLabel::create(myLabel, CC_CALLBACK_1(StoreLayer::refreshCardWithCoins, this));
 	buyEXP = MenuItemLabel::create(myLabel1, CC_CALLBACK_1(StoreLayer::buyEXPEithCoins, this));
 
@@ -49,16 +50,16 @@ void StoreLayer::createMenuItemOfCards(std::vector<int>&allCards)
 	it++;
 	cardItem[2] = MenuItemImage::create(photoName[*it] + ".png",
 		photoName[*it] + "light.png",//need replace
-		photoName[*it ] + ".png",
+		photoName[*it] + ".png",
 		CC_CALLBACK_1(StoreLayer::purchaseCardCallBack2, this));
 	cardItem[2]->setName(photoName[*it]);
 	//create equipmentCard
 	cardItem[3] = MenuItemImage::create(photoName[allCards.back()] + ".png",
 		photoName[allCards.back()] + "light.png",
-		photoName[allCards.back() ] + ".png",//need replace
+		photoName[allCards.back()] + ".png",//need replace
 		CC_CALLBACK_1(StoreLayer::purchaseCardCallBack3, this));
 	cardItem[3]->setName(photoName[allCards.back()]);
-	
+
 	refreshCard->setPosition(Vec2(500, 80));
 	buyEXP->setPosition(Vec2(500, 120));
 
@@ -83,16 +84,16 @@ void StoreLayer::createMenuItemOfCards(std::vector<int>&allCards)
 	//storeItems = Menu::createWithArray(onDisplayCards);
 	storeItems->setPosition(Vec2::ZERO);
 
-    this->addChild(storeItems);
+	this->addChild(storeItems);
 
 	return;
 }
 
-void StoreLayer::purchaseCardCallBack0(Ref* pSender)
+void StoreLayer::purchaseCardCallBack0(Ref* pSender, Play* player)
 {
 	if (callbackSign[0])
 	{
-		if (player.reduceMoneyForCard(3, store.allCards.at(store.allCards.size()-4)))
+		if (player->reduceMoneyForCard(3, store.allCards.at(store.allCards.size() - 4)))
 		{
 			this->cardItem[0]->getDisabledImage();
 			this->cardItem[0]->setEnabled(false);
@@ -102,19 +103,19 @@ void StoreLayer::purchaseCardCallBack0(Ref* pSender)
 		}
 		else
 		{
-			//Êä³ö¾¯¸æ¶Ô»°¿ò
-		
+			//Ä˜Ã¤Å‚Ã¶Å¾Å»Â¸Ä‡Å›Ã”Å¥Â°Å¼Åˆ
+
 		}
 	}
 
 	return;
 }
 
-void StoreLayer::purchaseCardCallBack1(Ref* pSender)
+void StoreLayer::purchaseCardCallBack1(Ref* pSender, Play* player)
 {
 	if (callbackSign[1])
 	{
-		if (player.reduceMoneyForCard(3, store.allCards.at(store.allCards.size() - 3)))
+		if (player->reduceMoneyForCard(3, store.allCards.at(store.allCards.size() - 3)))
 		{
 			this->cardItem[1]->getDisabledImage();
 			this->cardItem[1]->setEnabled(0);
@@ -126,11 +127,11 @@ void StoreLayer::purchaseCardCallBack1(Ref* pSender)
 	return;
 }
 
-void StoreLayer::purchaseCardCallBack2(Ref* pSender)
+void StoreLayer::purchaseCardCallBack2(Ref* pSender, Play* player)
 {
 	if (callbackSign[2])
 	{
-		if (player.reduceMoneyForCard(3, store.allCards.at(store.allCards.size() - 2)))
+		if (player->reduceMoneyForCard(3, store.allCards.at(store.allCards.size() - 2)))
 		{
 			this->cardItem[2]->getDisabledImage();
 			this->cardItem[2]->setEnabled(false);
@@ -143,11 +144,11 @@ void StoreLayer::purchaseCardCallBack2(Ref* pSender)
 }
 
 
-void StoreLayer::purchaseCardCallBack3(Ref* pSender)
+void StoreLayer::purchaseCardCallBack3(Ref* pSender, Play* player)
 {
 	if (callbackSign[3])
 	{
-		if (player.reduceMoneyForEquipment(3, store.allCards.back(),1))
+		if (player->reduceMoneyForEquipment(3, store.allCards.back(), 1))
 		{
 			cardItem[3]->getDisabledImage();
 			cardItem[3]->setEnabled(false);
@@ -170,40 +171,40 @@ void StoreLayer::refreshCardWithCoins(Ref* pSender)
 	return;
 }
 
-void StoreLayer::buyEXPEithCoins(Ref* pSender)
+void StoreLayer::buyEXPEithCoins(Ref* pSender, Play* player)
 {
-	if (player.reduceMoneyForLv(2))
+	if (player->reduceMoneyForLv(2))
 		;
 	return;
 }
 
-void StoreLayer::sendCardsToPreparingArea(int tag )
+void StoreLayer::sendCardsToPreparingArea(int tag)
 {
 	string fileName;
 	switch (tag)
 	{
-		case 1:
-		{
-			fileName = cardItem[0]->getName();
-			break;
-		}
-		case 2:
-		{
-			fileName = cardItem[1]->getName();
-			break;
-		}
-		case 3:
-		{
-			fileName = cardItem[2]->getName();
-			break;
-		}
-		case 4:
-		{
-			fileName = cardItem[3]->getName();
-			break;
-		}
-		default:
-			break;
+	case 1:
+	{
+		fileName = cardItem[0]->getName();
+		break;
+	}
+	case 2:
+	{
+		fileName = cardItem[1]->getName();
+		break;
+	}
+	case 3:
+	{
+		fileName = cardItem[2]->getName();
+		break;
+	}
+	case 4:
+	{
+		fileName = cardItem[3]->getName();
+		break;
+	}
+	default:
+		break;
 	}
 	if (4 == tag)
 	{

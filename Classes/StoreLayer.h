@@ -1,10 +1,10 @@
 #pragma once
-
 #include"cocos2d.h"
 #include"Store.h"
 #include "ui/CocosGUI.h"
 #include"Play.h"
 #include"Card.h"
+#include"Gamescene.h"
 
 using namespace cocos2d;
 
@@ -16,12 +16,12 @@ class StoreLayer :public Layer
 public:
 	CREATE_FUNC(StoreLayer);
 
-	virtual bool init();
+	virtual bool init(Play*player);
 
 	static Layer* createLayer();
 
 	Store store;
-	Play player;
+	//Play player;
 
 	MenuItemImage* cardItem[4];
 	MenuItemLabel* refreshCard;
@@ -39,8 +39,8 @@ public:
 
 	Menu* storeItems;
 
-	Card *onDisplayCards[6];
-	Card *onDisplayEquipments[6];
+	Card* onDisplayCards[6];
+	Card* onDisplayEquipments[6];
 
 	const std::string photoName[9] = { "firedragon",
 									   "fireslime" ,
@@ -52,17 +52,17 @@ public:
 									   "sword",
 									   "shield" };
 
-	void createMenuItemOfCards(std::vector<int>&allCards);
+	void createMenuItemOfCards(std::vector<int>& allCards);
 
-	void purchaseCardCallBack0(Ref* pSender);
-	void purchaseCardCallBack1(Ref* pSender);
-	void purchaseCardCallBack2(Ref* pSender);
-	void purchaseCardCallBack3(Ref* pSender);
+	void purchaseCardCallBack0(Ref* pSender, Play* player);
+	void purchaseCardCallBack1(Ref* pSender, Play* player);
+	void purchaseCardCallBack2(Ref* pSender, Play* player);
+	void purchaseCardCallBack3(Ref* pSender, Play* player);
 
 	void refreshCardWithCoins(Ref* pSender);
-	void buyEXPEithCoins(Ref* pSender);
+	void buyEXPEithCoins(Ref* pSender, Play* player);
 
-	
+
 
 	void sendCardsToPreparingArea(int position);
 
