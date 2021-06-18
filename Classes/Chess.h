@@ -5,8 +5,9 @@
 #include "cocos2d.h"
 #include <string>
 #include <cmath>
-#include "Attack.h"
+
 USING_NS_CC;
+class Attack;
 class Chess : public cocos2d::Sprite
 {
 public:
@@ -49,6 +50,8 @@ public:
 	void MoveTarget(Chess* target);//根据目标棋子位置决定要移动到的位置
 	void Test(cocos2d::Ref* pSender);//用于调试的回调函数
 	virtual	void update(float dt);
+	Chess* ShowTarget();
+	void destroy();//销毁update的包装方法
 private:
 	double healthpoint;       //HP
 	double attack;            //攻击力
@@ -70,6 +73,7 @@ private:
 	/// /////////////////////////////////////////////////////////////////////
 	int isdead;               //记录是否死亡
 	int ison;                 //记录是否上场
+	int isupdate = 0;       //记录是否在执行update
 };
 
 #endif

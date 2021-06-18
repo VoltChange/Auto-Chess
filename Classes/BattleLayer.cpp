@@ -38,7 +38,13 @@ void BattleLayer::test()
 	enemy[0]->SetOn(TRUE);
 	self[0]->SetHp(70);
 	self[1]->SetHp(40);
-	enemy[0]->SetHp(70);
+	enemy[0]->SetHp(7000);
+	self[0]->SetAtk(70);
+	self[1]->SetAtk(70);
+	enemy[0]->SetAtk(70);
+	self[0]->SetDef(10);
+	self[1]->SetDef(10);
+	enemy[0]->SetDef(10);
 	self[0]->SetAtkSpeed(4);
 	self[1]->SetAtkSpeed(3.5);
 	enemy[0]->SetAtkSpeed(4);
@@ -151,6 +157,10 @@ void BattleLayer::test2()
 {
 	enemy[0]->AtkTargetInit(self[0]);
 	enemy[0]->AttackTarget();
+	self[0]->AtkTargetInit(enemy[0]);
+	self[0]->AttackTarget();
+	self[1]->AtkTargetInit(enemy[0]);
+	self[1]->AttackTarget();
 }
 int BattleLayer::isend()
 {
@@ -201,7 +211,7 @@ void BattleLayer::searchtarget()
 {
 	const int LvS = 3;
 	const int LvE = 1;
-	/*
+
 	for (int i = 0; i < LvS; i++)
 	{
 		if (self[i]->IsOn() && (!self[i]->IsDead()))
@@ -220,7 +230,6 @@ void BattleLayer::searchtarget()
 			}
 		}
 	}
-	*/
 	for (int i = 0; i < LvE; i++)
 	{
 		if (enemy[i]->IsOn() && (!enemy[i]->IsDead()))

@@ -1,5 +1,5 @@
 #include "Chess.h"
-
+#include "Attack.h"
 bool Chess::init()
 {
 	//////////////////////////////
@@ -131,6 +131,7 @@ void Chess::SetMovemark()
 void Chess::AtkTargetInit(Chess* data)
 {
 	atktarget = data;
+	this->p_attack->PointInit(data);
 }
 //
 void Chess::AttackTo(Vec2 position)
@@ -168,7 +169,7 @@ void Chess::AttackTarget()
 }
 void Chess::ReduceHp(double atk)
 {
-	SetHp(ShowHp() -(atk - defence));//atk是攻击方的攻击力
+	SetHp(ShowHp() - (atk - defence));//atk是攻击方的攻击力
 }
 void Chess::update(float dt)
 {
@@ -191,12 +192,13 @@ void Chess::update(float dt)
 				atktimer = standard_atktimer;
 			}
 
-			if ((this->healthpoint)<=0)
+			if ((this->healthpoint) <= 0)
 			{
 				this->isdead = 1;//死亡
+				this->setVisible(0);
 			}
 
-			if (this->IsDead()||atktarget->IsDead())//如果死了就停止攻击
+			if (this->IsDead())//如果死了就停止攻击
 			{
 				atkmark = 0;
 				p_attack->removeFromParent();
@@ -225,6 +227,7 @@ void Chess::update(float dt)
 			atktimer = standard_atktimer;
 		}
 	}
+	isupdate = 1;
 }
 
 void Chess::MoveTo(Vec2 position)
@@ -273,4 +276,18 @@ void Chess::Test(cocos2d::Ref* pSender)
 	this->Reverse(0);
 	this->SetMoveSpeed(200);
 	this->MoveTo(Vec2(1000, 350));
+}
+///////////////////////////////////////////////////////////////////
+Chess* Chess::ShowTarget()
+{
+	return atktarget;
+}
+void Chess::destroy()
+{
+	if (isupdate)
+	{
+		this->unscheduleUpdate();
+		isupdate = 0;
+		//p_attack->destroy();
+	}
 }

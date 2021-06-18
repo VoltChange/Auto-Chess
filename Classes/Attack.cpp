@@ -44,17 +44,24 @@ void Attack::update(float dt)
 	if (present_position == target_position)
 	{
 		mark = 0;
+		double distance = sqrt(pow(target_position.x - target->getPositionX(), 2) + pow(target_position.y - target->getPositionY(), 2));//计算距离
+		if (distance <= 5)//击中
+		{
+			target->ReduceHp(attack);
+		}
 		this->unscheduleUpdate();
 		this->setVisible(false);
-	}
-
-	double distance = sqrt(pow(target_position.x -target->getPositionX(), 2) + pow(target_position.y - target->getPositionY(), 2));//计算距离
-	if (distance <= 5)//击中
-	{
-		target->ReduceHp(attack);
 	}
 	else//还在飞行中
 	{
 		mark = 1;
+	}
+}
+void Attack::destroy()
+{
+	if (isupdate)
+	{
+		this->unscheduleUpdate();
+		isupdate = 0;
 	}
 }
