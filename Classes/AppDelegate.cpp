@@ -23,12 +23,8 @@
  ****************************************************************************/
 
 #include "AppDelegate.h"
-#include "HelloWorldScene.h"
 #include "MainMenuScene.h"
 #include"GameScene.h"
-#include "AudioEngine.h"
-#include"PauseScene.h"
-
 
 // #define USE_AUDIO_ENGINE 1
 
@@ -113,16 +109,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     register_all_packages();
 
-    AudioEngine::preload("buttonDown.mp3");
-    AudioEngine::preload("buyCard.mp3");
-    AudioEngine::preload("backgroundMusic.mp3");
-    //AudioEngine::preload("buyCard.mp3");
-
-    musicID1=AudioEngine::play2d("backgroundMusic.mp3",true);
-    
     // create a scene. it's an autorelease object
     auto scene = MainMenu::createScene();
-   
+
     // run
     director->runWithScene(scene);
 

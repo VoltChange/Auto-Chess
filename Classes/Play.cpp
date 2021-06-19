@@ -3,9 +3,13 @@
 
 bool Play::init()
 {
+	if (!Sprite::init())
+	{
+		return false;
+	}
 	this->m_hp = 100;
-	this->m_lv = 1;
-	this->m_money = 10;
+	this->m_lv = 6;
+	this->m_money = 100;
 	this->permitOnSize = 1;
 
 	return true;
@@ -18,7 +22,7 @@ void Play::addMoney(int Money) {            //金币加
 bool Play::reduceMoneyForLv(int Money) {
 	if (this->m_money >= Money) {                 //判断手中的钱够不够，如果手中的钱够等级加加，如果手中的钱不够返回假
 		this->m_money = this->m_money - Money;
-		this->m_lv = this->m_lv + E;
+		this->m_lv = this->m_lv + 1;//原为this->m_lv = this->m_lv + E，不太懂
 		return true;
 	}
 	else
@@ -153,76 +157,76 @@ void card::initialize(int identification)
 
 void card::setFireDragonData()
 {
-	name = "fireDragon";
+	name = "firedragon";
 	lv = 1;
 
-	healthpoint = 100;       //HP
-	attack = 10;            //攻击力
-	atkspeed = 1;          //攻击速度
-	movespeed = 5;         //移动速度
-	defence = 50;           //防御力
-	atkrange = 100;          //攻击距离
-	flyspeed = 20;          //攻击物的飞行速度
+	healthpoint = 120;       //HP
+	attack = 50;            //攻击力
+	atkspeed = 2;          //攻击速度
+	movespeed = 60;         //移动速度
+	defence = 10;           //防御力
+	atkrange = 220;          //攻击距离
+	flyspeed = 80;          //攻击物的飞行速度
 
 	return;
 }
 void card::setFireSlimeData()
 {
-	name = "fireSlimen";
+	name = "fireslime";
 	lv = 1;
 
-	healthpoint = 100;       //HP
-	attack = 10;            //攻击力
-	atkspeed = 1;          //攻击速度
-	movespeed = 5;         //移动速度
-	defence = 50;           //防御力
-	atkrange = 100;          //攻击距离
-	flyspeed = 20;          //攻击物的飞行速度
+	healthpoint = 110;       //HP
+	attack = 40;            //攻击力
+	atkspeed = 2.2;          //攻击速度
+	movespeed = 60;         //移动速度
+	defence = 15;           //防御力
+	atkrange = 270;          //攻击距离
+	flyspeed = 100;          //攻击物的飞行速度
 
 	return;
 }
 void card::setGoldSlimeData()
 {
-	name = "goldSlime";
+	name = "goldslime";
 	lv = 1;
 
-	healthpoint = 100;       //HP
-	attack = 10;            //攻击力
-	atkspeed = 1;          //攻击速度
-	movespeed = 5;         //移动速度
-	defence = 50;           //防御力
-	atkrange = 100;          //攻击距离
-	flyspeed = 20;          //攻击物的飞行速度
+	healthpoint = 80;       //HP
+	attack = 35;            //攻击力
+	atkspeed = 1.8;          //攻击速度
+	movespeed = 40;         //移动速度
+	defence = 10;           //防御力
+	atkrange = 240;          //攻击距离
+	flyspeed = 100;          //攻击物的飞行速度
 
 	return;
 }
 void card::setMetalSlimeData()
 {
-	name = "metalSlime";
+	name = "metalslime";
 	lv = 1;
 
-	healthpoint = 100;       //HP
-	attack = 10;            //攻击力
-	atkspeed = 1;          //攻击速度
-	movespeed = 5;         //移动速度
-	defence = 50;           //防御力
-	atkrange = 100;          //攻击距离
-	flyspeed = 20;          //攻击物的飞行速度
+	healthpoint = 180;       //HP
+	attack = 35;            //攻击力
+	atkspeed = 2.2;          //攻击速度
+	movespeed = 30;         //移动速度
+	defence = 15;           //防御力
+	atkrange = 300;          //攻击距离
+	flyspeed = 150;          //攻击物的飞行速度
 
 	return;
 }
 void card::setShitSlimeData()
 {
-	name = "shitSlime";
+	name = "shitslime";
 	lv = 1;
 
 	healthpoint = 100;       //HP
-	attack = 10;            //攻击力
-	atkspeed = 1;          //攻击速度
-	movespeed = 5;         //移动速度
-	defence = 50;           //防御力
-	atkrange = 100;          //攻击距离
-	flyspeed = 20;          //攻击物的飞行速度
+	attack = 30;            //攻击力
+	atkspeed = 2;          //攻击速度
+	movespeed = 60;         //移动速度
+	defence = 15;           //防御力
+	atkrange = 350;          //攻击距离
+	flyspeed = 300;          //攻击物的飞行速度
 
 	return;
 }
@@ -231,13 +235,13 @@ void card::setHeLinData()
 	name = "helin";
 	lv = 1;
 
-	healthpoint = 100;       //HP
-	attack = 10;            //攻击力
-	atkspeed = 1;          //攻击速度
-	movespeed = 5;         //移动速度
-	defence = 50;           //防御力
-	atkrange = 100;          //攻击距离
-	flyspeed = 20;          //攻击物的飞行速度
+	healthpoint = 60;       //HP
+	attack = 30;            //攻击力
+	atkspeed = 1.3;          //攻击速度
+	movespeed = 30;         //移动速度
+	defence = 5;           //防御力
+	atkrange = 300;          //攻击距离
+	flyspeed = 350;          //攻击物的飞行速度
 
 	return;
 }

@@ -5,6 +5,7 @@
 #include "cocos2d.h"
 #include <string>
 #include <cmath>
+#include"Play.h"
 
 USING_NS_CC;
 class Attack;
@@ -52,6 +53,8 @@ public:
 	virtual	void update(float dt);
 	Chess* ShowTarget();
 	void destroy();//销毁update的包装方法
+	void setdatafromcard(card);
+	void setatkptrimage();
 private:
 	double healthpoint;       //HP
 	double attack;            //攻击力

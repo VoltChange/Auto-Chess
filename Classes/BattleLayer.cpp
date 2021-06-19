@@ -1,4 +1,6 @@
 #include"BattleLayer.h"
+Vec2 myfield[6]={ Vec2(930,710),Vec2(810,600),Vec2(1050,600),Vec2(690,475),Vec2(930,475),Vec2(1170,475) };
+Vec2 enfield[6] = { Vec2(930,780),Vec2(810,900),Vec2(1050,900),Vec2(690,1000),Vec2(930,1000),Vec2(1170,1000) };
 bool BattleLayer::init()
 {
 	if (!Layer::init())
@@ -7,14 +9,18 @@ bool BattleLayer::init()
 	{
 		self[i] = Chess::create();
 		this->addChild(self[i]);
+		self[i]->PointInit();
 		self[i]->setVisible(0);
 		enemy[i] = Chess::create();
 		this->addChild(enemy[i]);
+		enemy[i]->PointInit();
 		enemy[i]->setVisible(0);
 	}
 	//计时器部分
 	time = 0.0f;
-	auto label1 = Label::createWithTTF("Your Text", "fonts/Marker Felt.ttf", 40);
+	char string[12] = "ceshi";
+	//sprintf(string, "%d S", player_me->getm_money());
+	auto label1 = Label::createWithTTF(string, "fonts/Marker Felt.ttf", 40);
     this->addChild(label1, 0, 0);
 	label1->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
 	label1->setPosition(Vec2(170, 1000));
@@ -80,6 +86,7 @@ void BattleLayer::imageinit()
 		if (self[i]->IsOn())
 		{
 			self[i]->Reverse(1);
+			//self[i]->setatkptrimage();
 		}
 	}
 	for (int i = 0; i < LvE; i++)
@@ -87,6 +94,7 @@ void BattleLayer::imageinit()
 		if (enemy[i]->IsOn())
 		{
 			enemy[i]->Reverse(0);
+			//enemy[i]->setatkptrimage();
 		}
 	}
 }
@@ -100,7 +108,7 @@ void BattleLayer::onbattle()
 		if (self[i]->IsOn())
 		{
 			self[i]->setVisible(1);
-			self[i]->setPosition(Vec2(500 * i + 300, 300));
+			self[i]->setPosition(myfield[i]);
 		}
 	}
 	for (int i = 0; i < LvE; i++)
@@ -108,7 +116,7 @@ void BattleLayer::onbattle()
 		if (enemy[i]->IsOn())
 		{
 			enemy[i]->setVisible(1);
-			enemy[i]->setPosition(Vec2(500 * i + 300, 800));
+			enemy[i]->setPosition(enfield[i]);
 		}
 	}
 }
@@ -274,12 +282,15 @@ void BattleLayer::startup()
 	time = 0.0f;//计时重置
 	this->setVisible(1);//设置可见
 	this->reset();//重置棋子状态
-	this->test();
+	//this->test();
+	this->enemygenerate();
+	this->setchessdata();
 	this->imageinit();//加载场上棋子图片资源
 	this->onbattle(); //棋子上场
-	this->test2();
+	this->start();
 	this->scheduleUpdate();
 	this->schedule(CC_CALLBACK_1(BattleLayer::step, this), "step_key");
+
 }
 void BattleLayer::step(float dt)
 {
@@ -300,16 +311,46 @@ void BattleLayer::setchessdata()
 	cards equip_en = player_en->getMyEquipment();
 	for (int i = 0; i < LvS; i++)
 	{
-		if (hero_me.onCard[i].IsOn())
+		card cardhero = hero_me.onCard[i];
+		card cardequip = equip_me.onCard[i];
+		if (cardhero.IsOn())
 		{
 			//开始获取数据
+			self[i]->setdatafromcard(cardhero);
+			self[i]->SetOn(1);
+			if (cardequip.IsOn())//如果该位置有装备卡
+			{
+				self[i]->SetAtk(self[i]->ShowAtk() + cardequip.getAttack());
+				self[i]->SetDef(self[i]->ShowDef() + cardequip.getDefense());
+				self[i]->SetAtkRange(self[i]->ShowAtkRange() + cardequip.getAtkRange());
+			}
 		}
 	}
 	for (int i = 0; i < LvE; i++)
 	{
-		if (hero_en.onCard[i].IsOn())
+		card cardhero = hero_en.onCard[i];
+		card cardequip = equip_en.onCard[i];
+		if (cardhero.IsOn())
 		{
 			//开始获取数据
+			enemy[i]->setdatafromcard(cardhero);
+			enemy[i]->SetOn(1);
+			if (cardequip.IsOn())//如果该位置有装备卡
+			{
+				enemy[i]->SetAtk(enemy[i]->ShowAtk() + cardequip.getAttack());
+				enemy[i]->SetDef(enemy[i]->ShowDef() + cardequip.getDefense());
+				enemy[i]->SetAtkRange(enemy[i]->ShowAtkRange() + cardequip.getAtkRange());
+			}
 		}
 	}
+}
+void BattleLayer::setplayersptr(Play* ptr1, Play* ptr2)
+{
+	player_me = ptr1;
+	player_en = ptr2;
+}
+void BattleLayer::enemygenerate()
+{
+	player_en->reduceMoneyForCard(0, 0);
+
 }

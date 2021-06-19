@@ -4,15 +4,12 @@
 #include"Play.h"
 #define schedule_selector(_SELECTOR) static_cast<cocos2d::SEL_SCHEDULE>(&_SELECTOR)
 
-auto p1 = new Play();
 bool StoreLayer::init()
 {
 	if (!Layer::init())
 		return false;
 	memset(this->preparingAreaOfEquipment, 0, sizeof(this->preparingAreaOfEquipment));
 	memset(this->preparingAreaOfSprite, 0, sizeof(this->preparingAreaOfSprite));
-	player = p1;
-	player->init();
 	this->schedule(schedule_selector(StoreLayer::sellCardUpdate));
 	store.randFourCards();
 	this->createMenuItemOfCards(store.allCards);
@@ -280,4 +277,8 @@ void StoreLayer::sellCardUpdate(float dt)
 	}
 	
 	return;
+}
+void StoreLayer::setplayerptr(Play* ptr)
+{
+	player = ptr;
 }

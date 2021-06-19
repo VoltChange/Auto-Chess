@@ -110,7 +110,8 @@ void Chess::SetMoveTime()
 }
 void Chess::PointInit()
 {
-	p_attack = Attack::create(name);
+	p_attack = Attack::create();
+	this->getParent()->addChild(p_attack);
 }
 double Chess::SetAtkTimer(double data)
 {
@@ -160,10 +161,10 @@ void Chess::AttackTarget()
 	standard_atktimer = SetAtkTimer(atkspeed);
 	atktimer = standard_atktimer;
 	SetMovemark();
-	p_attack->PointInit(atktarget);
+	this->setatkptrimage();
 	p_attack->GetAttack(attack);
 
-	this->getParent()->addChild(p_attack);
+	//this->getParent()->addChild(p_attack);
 	//注册定时器
 	this->scheduleUpdate();
 }
@@ -173,14 +174,26 @@ void Chess::ReduceHp(double atk)
 }
 void Chess::update(float dt)
 {
+	if ((this->healthpoint) <= 0)
+	{
+		this->isdead = 1;//死亡
+		this->setVisible(0);
+	}
+
+	if (this->IsDead())//如果死了就停止攻击
+	{
+		atkmark = 0;
+		p_attack->setVisible(0);
+		this->unscheduleUpdate();
+	}
 	//棋子不在移动
 	if (0 == movemark)
 	{
 		//在范围内＆目标不再移动//目标的movemark变更?
 		//发动攻击
-		if (CountTheDistance(this->getPosition(), atktarget->getPosition()) <= atkrange)
+		if (CountTheDistance(this->getPosition(), atktarget->getPosition()) <= atkrange+20)
 		{
-			if (standard_atktimer == atktimer)
+			if (standard_atktimer <= atktimer)//(standard_atktimer == atktimer)
 			{
 				atkmark = 1;
 				AttackTo(atktarget->getPosition());//攻击
@@ -192,24 +205,14 @@ void Chess::update(float dt)
 				atktimer = standard_atktimer;
 			}
 
-			if ((this->healthpoint) <= 0)
-			{
-				this->isdead = 1;//死亡
-				this->setVisible(0);
-			}
-
-			if (this->IsDead())//如果死了就停止攻击
-			{
-				atkmark = 0;
-				p_attack->removeFromParent();
-				this->unscheduleUpdate();
-			}
+//////////////////////////////
 		}
 
 		//目标不在攻击范围内＆棋子不移动
 		else
 		{
 			movemark = 1;//标记正在移动
+			p_attack->setVisible(0);
 			MoveTarget(atktarget);
 			standard_movetimer = SetMoveTimer();
 			movetimer = standard_movetimer;
@@ -222,7 +225,7 @@ void Chess::update(float dt)
 		if (movetimer <= 0)
 		{
 			movemark = 0;
-			movetimer = standard_movetimer;
+			//movetimer = standard_movetimer;
 			standard_atktimer = SetAtkTimer(atkspeed);
 			atktimer = standard_atktimer;
 		}
@@ -290,4 +293,19 @@ void Chess::destroy()
 		isupdate = 0;
 		//p_attack->destroy();
 	}
+}
+void Chess::setdatafromcard(card instance)
+{
+	this->SetName(instance.showName());
+	this->SetHp(instance.getHealthpoint());
+	this->SetAtk(instance.getAttack());
+	this->SetAtkSpeed(instance.getAtkSpeed());
+	this->SetMoveSpeed(instance.getMoveSpeed());
+	this->SetDef(instance.getDefense());
+	this->SetAtkRange(instance.getAtkRange());
+	this->SetFlySpeed(instance.getFlySpeed());
+}
+void Chess::setatkptrimage()
+{
+	p_attack->setTexture(name + "attack.png");
 }

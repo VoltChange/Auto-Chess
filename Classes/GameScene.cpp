@@ -1,11 +1,5 @@
 #include"GameScene.h"
-#include"MainMenuScene.h"
-#include"PauseScene.h"
-#include"InformationLayer.h"
-#include"Store.h"
-#include"StoreLayer.h"
-#include"Card.h"
-#include"cocos2d.h"
+
 
 Scene* GameScene::createScene()
 {
@@ -16,31 +10,19 @@ bool GameScene::init()
 {
 	if (!Scene::init())
 		return false;
-
+	this->playersinit();
 	this->createMapLayer();
 	this->createInformationLayer();
 	this->createButtons();
 	this->createStoreLayer();
-	/*auto test = MovableSprite::create();
-	test->changecover("firedragon");
-	//test->changecover("firedragon.png");
-	test->setScale(0.2f);
-	test->setPosition(Vec2(500, 500));*/
-
-	/*auto test = Card::create();
-	test->changecover("firedragon");
-	test->setScale(0.26f);
-	test->setAnchorPoint(Vec2(0, 1.0));
-	test->setPosition(Vec2(1725, 180));
-	//auto listener=EventListenerMouse::
-	this->addChild(test);*/
+	this->creatBattleLayer();
 	return true;
 }
 
 void GameScene::createMapLayer()
 {
 	auto map = TMXTiledMap::create("map.tmx");
-	
+
 	this->addChild(map, 0, 99); // with a tag of '99'
 
 	return;
@@ -65,6 +47,7 @@ void GameScene::createButtons()
 void GameScene::createStoreLayer()
 {
 	StoreLayer* storeLayer = StoreLayer::create();
+	storeLayer->setplayerptr(playerme);//°ó¶¨Íæ¼ÒÖ¸Õë
 	this->addChild(storeLayer, 4);
 	return;
 }
@@ -72,6 +55,28 @@ void GameScene::createStoreLayer()
 void GameScene::gamePauseCallback(Ref* pSender)
 {
 	Director::getInstance()->pushScene(PauseScene::create());
-    
+
 	return;
+}
+void GameScene::playersinit()
+{
+	playerme = Play::create();
+	this->addChild(playerme);
+	playeren = Play::create();
+	this->addChild(playeren);
+}
+void GameScene::creatBattleLayer()
+{
+	auto battlelayer = BattleLayer::create();
+	battlelayer->setplayersptr(playerme, playeren);
+	battlelayer->setVisible(0);
+	auto startItem = MenuItemImage::create("start.jpg",
+		"start2.jpg",
+		CC_CALLBACK_0(BattleLayer::startup, battlelayer));
+	startItem->setScale(0.25);
+	auto menu = Menu::create(startItem, NULL);
+	menu->setPosition(Vec2(500,170));
+	this->addChild(menu, 5);
+	this->addChild(battlelayer,5);
+
 }

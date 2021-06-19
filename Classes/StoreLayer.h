@@ -66,4 +66,6 @@ public:
 	void sendCardsToPreparingArea(int position);
 
 	void sellCardUpdate(float dt);
+
+	void setplayerptr(Play*);
 };

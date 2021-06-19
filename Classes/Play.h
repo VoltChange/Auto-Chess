@@ -4,9 +4,9 @@
 #include<vector>
 #include<string.h>
 #define MAX 6
-
+#include "cocos2d.h"
 using namespace std;
-
+USING_NS_CC;
 class card
 {
 private:
@@ -51,6 +51,16 @@ public:
 
 	int IsOn();
 	void SetOn(int);
+
+	
+	double getHealthpoint() { return healthpoint; }
+	double getAttack() { return attack; }
+	double getAtkSpeed() { return atkspeed; }
+	double getMoveSpeed() { return movespeed; }
+	double getDefense() { return defence; }
+	double getAtkRange() { return atkrange; }
+	double getFlySpeed() { return flyspeed; }
+	string showName() { return name; }
 };
 
 class cards
@@ -59,8 +69,11 @@ public:
 	class card onCard[MAX];
 	int onSize = 0;
 };
-class Play
+class Play :public cocos2d :: Sprite
 {
+public:
+	CREATE_FUNC(Play);
+	virtual bool init();
 private:
 	int m_lv;
 	int m_hp;
@@ -71,7 +84,6 @@ private:
 	cards myEquipment;
 	int permitOnSize;
 public:
-	bool init();
 	void addMoney(int Money);	//金币加
 	bool reduceMoneyForLv(int Money);//买经验
 	bool judgeEXP();	 //判断经验是不是可以升级
