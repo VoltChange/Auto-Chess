@@ -41,11 +41,13 @@ void Attack::GetAttack(double atk)
 void Attack::update(float dt)
 {
 	Vec2 present_position = this->getPosition();
-	if (present_position == target_position)
+	double countdistance = sqrt(pow(target_position.x - present_position.x, 2) + pow(target_position.y - present_position.y, 2));
+	//if (present_position == target_position)
+	if(countdistance<=1)
 	{
 		mark = 0;
 		double distance = sqrt(pow(target_position.x - target->getPositionX(), 2) + pow(target_position.y - target->getPositionY(), 2));//º∆À„æ‡¿Î
-		if (distance <= 5)//ª˜÷–
+		if (distance <= 50)//ª˜÷–
 		{
 			target->ReduceHp(attack);
 		}

@@ -163,10 +163,10 @@ void card::setFireDragonData()
 	healthpoint = 120;       //HP
 	attack = 50;            //¹¥»÷Á¦
 	atkspeed = 2;          //¹¥»÷ËÙ¶È
-	movespeed = 60;         //ÒÆ¶¯ËÙ¶È
+	movespeed = 80;         //ÒÆ¶¯ËÙ¶È
 	defence = 10;           //·ÀÓùÁ¦
-	atkrange = 220;          //¹¥»÷¾àÀë
-	flyspeed = 80;          //¹¥»÷ÎïµÄ·ÉÐÐËÙ¶È
+	atkrange = 320;          //¹¥»÷¾àÀë
+	flyspeed = 320;          //¹¥»÷ÎïµÄ·ÉÐÐËÙ¶È
 
 	return;
 }
@@ -178,10 +178,10 @@ void card::setFireSlimeData()
 	healthpoint = 110;       //HP
 	attack = 40;            //¹¥»÷Á¦
 	atkspeed = 2.2;          //¹¥»÷ËÙ¶È
-	movespeed = 60;         //ÒÆ¶¯ËÙ¶È
+	movespeed = 80;         //ÒÆ¶¯ËÙ¶È
 	defence = 15;           //·ÀÓùÁ¦
-	atkrange = 270;          //¹¥»÷¾àÀë
-	flyspeed = 100;          //¹¥»÷ÎïµÄ·ÉÐÐËÙ¶È
+	atkrange = 370;          //¹¥»÷¾àÀë
+	flyspeed = 330;          //¹¥»÷ÎïµÄ·ÉÐÐËÙ¶È
 
 	return;
 }
@@ -195,8 +195,8 @@ void card::setGoldSlimeData()
 	atkspeed = 1.8;          //¹¥»÷ËÙ¶È
 	movespeed = 40;         //ÒÆ¶¯ËÙ¶È
 	defence = 10;           //·ÀÓùÁ¦
-	atkrange = 240;          //¹¥»÷¾àÀë
-	flyspeed = 100;          //¹¥»÷ÎïµÄ·ÉÐÐËÙ¶È
+	atkrange = 340;          //¹¥»÷¾àÀë
+	flyspeed = 280;          //¹¥»÷ÎïµÄ·ÉÐÐËÙ¶È
 
 	return;
 }
@@ -211,7 +211,7 @@ void card::setMetalSlimeData()
 	movespeed = 30;         //ÒÆ¶¯ËÙ¶È
 	defence = 15;           //·ÀÓùÁ¦
 	atkrange = 300;          //¹¥»÷¾àÀë
-	flyspeed = 150;          //¹¥»÷ÎïµÄ·ÉÐÐËÙ¶È
+	flyspeed = 250;          //¹¥»÷ÎïµÄ·ÉÐÐËÙ¶È
 
 	return;
 }
@@ -225,8 +225,8 @@ void card::setShitSlimeData()
 	atkspeed = 2;          //¹¥»÷ËÙ¶È
 	movespeed = 60;         //ÒÆ¶¯ËÙ¶È
 	defence = 15;           //·ÀÓùÁ¦
-	atkrange = 350;          //¹¥»÷¾àÀë
-	flyspeed = 300;          //¹¥»÷ÎïµÄ·ÉÐÐËÙ¶È
+	atkrange = 650;          //¹¥»÷¾àÀë
+	flyspeed = 500;          //¹¥»÷ÎïµÄ·ÉÐÐËÙ¶È
 
 	return;
 }
@@ -237,11 +237,11 @@ void card::setHeLinData()
 
 	healthpoint = 60;       //HP
 	attack = 30;            //¹¥»÷Á¦
-	atkspeed = 1.3;          //¹¥»÷ËÙ¶È
+	atkspeed = 1.0;          //¹¥»÷ËÙ¶È
 	movespeed = 30;         //ÒÆ¶¯ËÙ¶È
 	defence = 5;           //·ÀÓùÁ¦
-	atkrange = 300;          //¹¥»÷¾àÀë
-	flyspeed = 350;          //¹¥»÷ÎïµÄ·ÉÐÐËÙ¶È
+	atkrange = 350;          //¹¥»÷¾àÀë
+	flyspeed = 750;          //¹¥»÷ÎïµÄ·ÉÐÐËÙ¶È
 
 	return;
 }
@@ -250,13 +250,13 @@ void card::setBowData()
 	name = "bow";
 	lv = 1;
 
-	healthpoint = 100;       //HP
-	attack = 10;            //¹¥»÷Á¦
-	atkspeed = 1;          //¹¥»÷ËÙ¶È
-	movespeed = 5;         //ÒÆ¶¯ËÙ¶È
-	defence = 50;           //·ÀÓùÁ¦
-	atkrange = 100;          //¹¥»÷¾àÀë
-	flyspeed = 20;          //¹¥»÷ÎïµÄ·ÉÐÐËÙ¶È
+	healthpoint = 0;       //HP
+	attack = 0;            //¹¥»÷Á¦
+	atkspeed = 0;          //¹¥»÷ËÙ¶È
+	movespeed = 0;         //ÒÆ¶¯ËÙ¶È
+	defence = 0;           //·ÀÓùÁ¦
+	atkrange = 500;          //¹¥»÷¾àÀë
+	flyspeed = 300;          //¹¥»÷ÎïµÄ·ÉÐÐËÙ¶È
 
 	return;
 }
@@ -265,13 +265,13 @@ void card::setSwordData()
 	name = "sword";
 	lv = 1;
 
-	healthpoint = 100;       //HP
-	attack = 10;            //¹¥»÷Á¦
-	atkspeed = 1;          //¹¥»÷ËÙ¶È
-	movespeed = 5;         //ÒÆ¶¯ËÙ¶È
-	defence = 50;           //·ÀÓùÁ¦
-	atkrange = 100;          //¹¥»÷¾àÀë
-	flyspeed = 20;          //¹¥»÷ÎïµÄ·ÉÐÐËÙ¶È
+	healthpoint = 0;       //HP
+	attack = 20;            //¹¥»÷Á¦
+	atkspeed = 0;          //¹¥»÷ËÙ¶È
+	movespeed = 0;         //ÒÆ¶¯ËÙ¶È
+	defence = 0;           //·ÀÓùÁ¦
+	atkrange = 0;          //¹¥»÷¾àÀë
+	flyspeed = 0;          //¹¥»÷ÎïµÄ·ÉÐÐËÙ¶È
 
 	return;
 }
@@ -280,13 +280,13 @@ void card::setShieldData()
 	name = "shield";
 	lv = 1;
 
-	healthpoint = 100;       //HP
-	attack = 10;            //¹¥»÷Á¦
-	atkspeed = 1;          //¹¥»÷ËÙ¶È
-	movespeed = 5;         //ÒÆ¶¯ËÙ¶È
-	defence = 50;           //·ÀÓùÁ¦
-	atkrange = 100;          //¹¥»÷¾àÀë
-	flyspeed = 20;          //¹¥»÷ÎïµÄ·ÉÐÐËÙ¶È
+	healthpoint = 0;       //HP
+	attack = 0;            //¹¥»÷Á¦
+	atkspeed = 0;          //¹¥»÷ËÙ¶È
+	movespeed = 0;         //ÒÆ¶¯ËÙ¶È
+	defence = 10;           //·ÀÓùÁ¦
+	atkrange = 0;          //¹¥»÷¾àÀë
+	flyspeed = 0;          //¹¥»÷ÎïµÄ·ÉÐÐËÙ¶È
 
 	return;
 }

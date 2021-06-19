@@ -86,6 +86,8 @@ void BattleLayer::imageinit()
 		if (self[i]->IsOn())
 		{
 			self[i]->Reverse(1);
+			auto rotate = RotateTo::create(0.00001f, 0);
+			self[i]->runAction(rotate);
 			//self[i]->setatkptrimage();
 		}
 	}
@@ -94,6 +96,8 @@ void BattleLayer::imageinit()
 		if (enemy[i]->IsOn())
 		{
 			enemy[i]->Reverse(0);
+			auto rotate = RotateTo::create(0.00001f, 0);
+			enemy[i]->runAction(rotate);
 			//enemy[i]->setatkptrimage();
 		}
 	}
@@ -231,7 +235,8 @@ void BattleLayer::searchtarget()
 					if (enemy[j]->IsOn() && (!enemy[j]->IsDead()))
 					{
 						self[i]->AtkTargetInit(enemy[j]);
-						//self[i]->AttackTarget();
+						self[i]->destroy();
+						self[i]->AttackTarget();
 						break;
 					}
 				}
@@ -249,7 +254,8 @@ void BattleLayer::searchtarget()
 					if (self[j]->IsOn() && (!self[j]->IsDead()))
 					{
 						enemy[i]->AtkTargetInit(self[j]);
-						//enemy[i]->AttackTarget();
+						enemy[i]->destroy();
+						enemy[i]->AttackTarget();
 						break;
 					}
 				}
