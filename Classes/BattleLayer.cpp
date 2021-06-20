@@ -1,5 +1,5 @@
 #include"BattleLayer.h"
-Vec2 myfield[6]={ Vec2(930,710),Vec2(810,600),Vec2(1050,600),Vec2(690,475),Vec2(930,475),Vec2(1170,475) };
+Vec2 myfield[6] = { Vec2(930,710),Vec2(810,600),Vec2(1050,600),Vec2(690,475),Vec2(930,475),Vec2(1170,475) };
 Vec2 enfield[6] = { Vec2(930,780),Vec2(810,900),Vec2(1050,900),Vec2(690,1000),Vec2(930,1000),Vec2(1170,1000) };
 bool BattleLayer::init()
 {
@@ -21,7 +21,7 @@ bool BattleLayer::init()
 	char string[12] = "ceshi";
 	//sprintf(string, "%d S", player_me->getm_money());
 	auto label1 = Label::createWithTTF(string, "fonts/Marker Felt.ttf", 40);
-    this->addChild(label1, 0, 0);
+	this->addChild(label1, 0, 0);
 	label1->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
 	label1->setPosition(Vec2(170, 1000));
 	label1->setOpacity(200);
@@ -212,7 +212,14 @@ void BattleLayer::end()
 			this->unscheduleUpdate();
 			this->unschedule("step_key");
 			//扣血
-			//
+			if (isend() == 1)  //我方赢的情况
+			{
+				player_en->reducehp();
+			}
+			else
+			{
+				player_me->reducehp();
+			}
 			this->destroy();//销毁所有update
 			//this->setVisible(0);
 			isbattle = 0;
@@ -267,7 +274,7 @@ void BattleLayer::destroy()
 {
 	const int LvS = player_me->getm_lv();
 	const int LvE = player_en->getm_lv();
-	
+
 	for (int i = 0; i < LvS; i++)
 	{
 		if (self[i]->IsOn())

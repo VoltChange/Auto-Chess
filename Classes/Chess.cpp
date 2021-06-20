@@ -115,15 +115,15 @@ void Chess::PointInit()
 }
 double Chess::SetAtkTimer(double data)
 {
-	return data * 60;//60å¸§æ•°
+	return data * 60;//60Ö¡Êý
 }
 double Chess::SetMoveTimer()
 {
-	return move_time * 60;//60æ˜¯å¸§æ•°
+	return move_time * 60;//60ÊÇÖ¡Êý
 }
 void Chess::SetAtkMark()
 {
-	atkmark = 0;//åˆå§‹åŒ–ä¸º0ï¼Œä¸æ”»å‡»
+	atkmark = 0;//³õÊ¼»¯Îª0£¬²»¹¥»÷
 }
 void Chess::SetMovemark()
 {
@@ -139,13 +139,13 @@ void Chess::AttackTo(Vec2 position)
 {
 	p_attack->setPosition(this->getPosition());
 	p_attack->setVisible(true);
-	double time = CountTheDistance(position, p_attack->getPosition()) / flyspeed;//ç®—å‡ºæ”»å‡»ç‰©éœ€è¦çš„æ—¶é—´
+	double time = CountTheDistance(position, p_attack->getPosition()) / flyspeed;//Ëã³ö¹¥»÷ÎïÐèÒªµÄÊ±¼ä
 
-	//æ”»å‡»ç‰©çš„å•ä¸ªè®¡æ—¶å™¨
-	p_attack->setTargetPosition(position);//å‘Šè¯‰æ”»å‡»ç‰©ç›®æ ‡ä½ç½®
-	p_attack->scheduleUpdate();//attackå†…éƒ¨æ³¨å†Œè®¡æ—¶å™¨,ä¼šè‡ªåŠ¨æ³¨é”€
+	//¹¥»÷ÎïµÄµ¥¸ö¼ÆÊ±Æ÷
+	p_attack->setTargetPosition(position);//¸æËß¹¥»÷ÎïÄ¿±êÎ»ÖÃ
+	p_attack->scheduleUpdate();//attackÄÚ²¿×¢²á¼ÆÊ±Æ÷,»á×Ô¶¯×¢Ïú
 
-	//å¼€å§‹æ”»å‡»
+	//¿ªÊ¼¹¥»÷
 	auto attack_move = MoveTo::create(time, position);
 	p_attack->runAction(attack_move);
 
@@ -157,7 +157,7 @@ double Chess::CountTheDistance(Vec2 position1, Vec2 position2)
 }
 void Chess::AttackTarget()
 {
-	//åˆå§‹åŒ–
+	//³õÊ¼»¯
 	standard_atktimer = SetAtkTimer(atkspeed);
 	atktimer = standard_atktimer;
 	SetMovemark();
@@ -165,60 +165,60 @@ void Chess::AttackTarget()
 	p_attack->GetAttack(attack);
 
 	//this->getParent()->addChild(p_attack);
-	//æ³¨å†Œå®šæ—¶å™¨
+	//×¢²á¶¨Ê±Æ÷
 	this->scheduleUpdate();
 }
 void Chess::ReduceHp(double atk)
 {
-	SetHp(ShowHp() - (atk - defence));//atkæ˜¯æ”»å‡»æ–¹çš„æ”»å‡»åŠ›
+	SetHp(ShowHp() - (atk - defence));//atkÊÇ¹¥»÷·½µÄ¹¥»÷Á¦
 }
 void Chess::update(float dt)
 {
 	if ((this->healthpoint) <= 0)
 	{
-		this->isdead = 1;//æ­»äº¡
+		this->isdead = 1;//ËÀÍö
 		this->setVisible(0);
 	}
 
-	if (this->IsDead())//å¦‚æžœæ­»äº†å°±åœæ­¢æ”»å‡»
+	if (this->IsDead())//Èç¹ûËÀÁË¾ÍÍ£Ö¹¹¥»÷
 	{
 		atkmark = 0;
 		p_attack->setVisible(0);
 		this->unscheduleUpdate();
 	}
-	//æ£‹å­ä¸åœ¨ç§»åŠ¨
+	//Æå×Ó²»ÔÚÒÆ¶¯
 	if (0 == movemark)
 	{
-		//åœ¨èŒƒå›´å†…ï¼†ç›®æ ‡ä¸å†ç§»åŠ¨//ç›®æ ‡çš„movemarkå˜æ›´?
-		//å‘åŠ¨æ”»å‡»
-		if (CountTheDistance(this->getPosition(), atktarget->getPosition()) <= atkrange+20)
+		//ÔÚ·¶Î§ÄÚ£¦Ä¿±ê²»ÔÙÒÆ¶¯//Ä¿±êµÄmovemark±ä¸ü?
+		//·¢¶¯¹¥»÷
+		if (CountTheDistance(this->getPosition(), atktarget->getPosition()) <= atkrange + 20)
 		{
 			if (standard_atktimer <= atktimer)//(standard_atktimer == atktimer)
 			{
 				atkmark = 1;
-				AttackTo(atktarget->getPosition());//æ”»å‡»
+				AttackTo(atktarget->getPosition());//¹¥»÷
 			}
 
 			atktimer--;
-			if (atktimer <= 0)//è®¡æ—¶å™¨åˆ°é›¶äº†ä¹‹åŽåˆå›žå¤åŽŸæ•°ï¼Œé‡å¤æ”»å‡»
+			if (atktimer <= 0)//¼ÆÊ±Æ÷µ½ÁãÁËÖ®ºóÓÖ»Ø¸´Ô­Êý£¬ÖØ¸´¹¥»÷
 			{
 				atktimer = standard_atktimer;
 			}
 
-//////////////////////////////
+			//////////////////////////////
 		}
 
-		//ç›®æ ‡ä¸åœ¨æ”»å‡»èŒƒå›´å†…ï¼†æ£‹å­ä¸ç§»åŠ¨
+		//Ä¿±ê²»ÔÚ¹¥»÷·¶Î§ÄÚ£¦Æå×Ó²»ÒÆ¶¯
 		else
 		{
-			movemark = 1;//æ ‡è®°æ­£åœ¨ç§»åŠ¨
+			movemark = 1;//±ê¼ÇÕýÔÚÒÆ¶¯
 			p_attack->setVisible(0);
 			MoveTarget(atktarget);
 			standard_movetimer = SetMoveTimer();
 			movetimer = standard_movetimer;
 		}
 	}
-	//æ£‹å­åœ¨ç§»åŠ¨
+	//Æå×ÓÔÚÒÆ¶¯
 	else if (1 == movemark)
 	{
 		movetimer--;
@@ -235,11 +235,11 @@ void Chess::update(float dt)
 
 void Chess::MoveTo(Vec2 position)
 {
-	double distance = sqrt(pow(position.x - this->getPositionX(), 2) + pow(position.y - this->getPositionY(), 2));//è®¡ç®—è·ç¦»
+	double distance = sqrt(pow(position.x - this->getPositionX(), 2) + pow(position.y - this->getPositionY(), 2));//¼ÆËã¾àÀë
 	const double angle = 30;
-	auto move = MoveTo::create(distance / movespeed, position);//ç§»åŠ¨åŠ¨ä½œ
+	auto move = MoveTo::create(distance / movespeed, position);//ÒÆ¶¯¶¯×÷
 	move_time = distance / movespeed;
-	//åˆ›å»ºæ™ƒåŠ¨åŠ¨ä½œåºåˆ—
+	//´´½¨»Î¶¯¶¯×÷ÐòÁÐ
 	auto rotate1 = RotateBy::create(distance / movespeed / 4 / 2, angle);
 	auto rotate2 = RotateBy::create(distance / movespeed / 4, -angle * 2);
 	auto rotate3 = RotateBy::create(distance / movespeed / 4, angle * 2);
@@ -249,16 +249,16 @@ void Chess::MoveTo(Vec2 position)
 	auto seq2 = Sequence::createWithTwoActions(rotate3, rotate4);
 	auto seq3 = Sequence::createWithTwoActions(seq1, seq2);
 	auto seq4 = Sequence::createWithTwoActions(seq3, rotate5);
-	//ç§»åŠ¨å’Œæ™ƒåŠ¨åŒæ—¶åºåˆ—
+	//ÒÆ¶¯ºÍ»Î¶¯Í¬Ê±ÐòÁÐ
 	auto spa = Spawn::createWithTwoActions(seq4, move);
 	this->runAction(spa);
 }
 void Chess::MoveTarget(Chess* target)
 {
-	auto position = target->getPosition();//èŽ·å–ç›®æ ‡ä½ç½®
-	double distance = sqrt(pow(position.x - this->getPositionX(), 2) + pow(position.y - this->getPositionY(), 2));//è®¡ç®—è·ç¦»
-	auto unitvector = Vec2(position.x - this->getPositionX(), position.y - this->getPositionY()) / distance;//è®¡ç®—å•ä½å‘é‡
-	double movedistance;//æ ¹æ®æ”»å‡»è·ç¦»å’Œç›®æ ‡æ£‹å­ä½ç½®è®¡ç®—è¦ç§»åŠ¨çš„ä½ç½®
+	auto position = target->getPosition();//»ñÈ¡Ä¿±êÎ»ÖÃ
+	double distance = sqrt(pow(position.x - this->getPositionX(), 2) + pow(position.y - this->getPositionY(), 2));//¼ÆËã¾àÀë
+	auto unitvector = Vec2(position.x - this->getPositionX(), position.y - this->getPositionY()) / distance;//¼ÆËãµ¥Î»ÏòÁ¿
+	double movedistance;//¸ù¾Ý¹¥»÷¾àÀëºÍÄ¿±êÆå×ÓÎ»ÖÃ¼ÆËãÒªÒÆ¶¯µÄÎ»ÖÃ
 	if (distance - atkrange > 0)
 	{
 		movedistance = distance - atkrange;

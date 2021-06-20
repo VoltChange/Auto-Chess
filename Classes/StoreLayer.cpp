@@ -67,10 +67,10 @@ void StoreLayer::createMenuItemOfCards(std::vector<int>& allCards)
 	cardItem[2]->setPosition(Vec2(695 + 150 * 2, 110));
 	cardItem[3]->setPosition(Vec2(1295, 110));
 
-	cardItem[0]->setScale(0.27f);
-	cardItem[1]->setScale(0.27f);
-	cardItem[2]->setScale(0.27f);
-	cardItem[3]->setScale(0.27f);
+	//cardItem[0]->setScale(0.27f);
+	//cardItem[1]->setScale(0.27f);
+	//cardItem[2]->setScale(0.27f);
+	//cardItem[3]->setScale(0.27f);
 
 	storeItems = Menu::create();
 
@@ -102,6 +102,7 @@ void StoreLayer::purchaseCardCallBack0(Ref* pSender)
 			sendCardsToPreparingArea(1);
 			callbackSign[0] = false;
 			cardLevelUp();
+			cardLevelUp();
 		}
 		else
 		{
@@ -127,6 +128,7 @@ void StoreLayer::purchaseCardCallBack1(Ref* pSender)
 			sendCardsToPreparingArea(2);
 			callbackSign[1] = false;
 			cardLevelUp();
+			cardLevelUp();
 		}
 	}
 	return;
@@ -145,6 +147,7 @@ void StoreLayer::purchaseCardCallBack2(Ref* pSender)
 			cardItem[2]->setColor(Color3B::GRAY);
 			sendCardsToPreparingArea(3);
 			callbackSign[2] = false;
+			cardLevelUp();
 			cardLevelUp();
 		}
 	}
@@ -172,12 +175,15 @@ void StoreLayer::purchaseCardCallBack3(Ref* pSender)
 
 void StoreLayer::refreshCardWithCoins(Ref* pSender)
 {
-	store.randFourCards();
-	for (int i = 0; i < 4; i++)
+	if (player->refreshStore())
 	{
-		callbackSign[i] = true;
+		store.randFourCards();
+		for (int i = 0; i < 4; i++)
+		{
+			callbackSign[i] = true;
+		}
+		this->createMenuItemOfCards(store.allCards);
 	}
-	this->createMenuItemOfCards(store.allCards);
 	return;
 }
 
@@ -228,7 +234,7 @@ void StoreLayer::sendCardsToPreparingArea(int tag)
 			{
 				onDisplayEquipments[i] = Card::create();
 				onDisplayEquipments[i]->changecover(fileName);
-				onDisplayEquipments[i]->setScale(0.26f);
+				//onDisplayEquipments[i]->setScale(0.26f);
 				onDisplayEquipments[i]->setAnchorPoint(Vec2(0.5, 0.5));
 				onDisplayEquipments[i]->setPosition(Vec2(cardHeadX2 + 150 * i, cardY));
 				preparingAreaOfEquipment[i] = true;
@@ -258,11 +264,10 @@ void StoreLayer::sendCardsToPreparingArea(int tag)
 						onDisplayCards[i]->setIdentification(j);
 					}
 				}
-				onDisplayCards[i]->setScale(0.26f);
+				onDisplayCards[i]->setContentSize(Size(140, 187));
 				onDisplayCards[i]->setAnchorPoint(Vec2(0.5, 0.5));
 				onDisplayCards[i]->setPosition(Vec2(cardHeadX1 + 150 * i, cardY));
 				preparingAreaOfSprite[i] = true;
-				//auto listener=EventListenerMouse::
 				this->addChild(onDisplayCards[i]);
 				i = 6;
 			}
@@ -343,7 +348,7 @@ void StoreLayer::cardLevelUp()
 					{
 						onDisplayCards[k] = Card::create();
 						onDisplayCards[k]->changecover(photoName[j]);
-						onDisplayCards[k]->setScale(0.26f);
+						//onDisplayCards[k]->setScale(0.26f);
 						onDisplayCards[k]->setAnchorPoint(Vec2(0.5, 0.5));
 						onDisplayCards[k]->setPosition(Vec2(cardHeadX1 + 150 * k, cardY));
 						preparingAreaOfSprite[k] = true;

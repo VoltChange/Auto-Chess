@@ -11,7 +11,8 @@ bool Card::init()
 {
 	if (!MovableSprite::create())
 		return false;
-
+	cardLv = 1;
+	showStar();
 	//将鼠标按下事件加入监听
 	auto _mouseListener = EventListenerMouse::create();
 	_mouseListener->onMouseDown = CC_CALLBACK_1(MovableSprite::onMouseDown, this);
@@ -52,11 +53,8 @@ void Card::onMouseDown(Event* event)
 	auto spriteY = this->getPositionY();
 	auto spriteS = this->getContentSize();
 
-	originalX = spriteX;
-	originalY = spriteY;
-
 	//判断点击时鼠标是否在精灵范围内
-	if ((fabs(spriteX - mouseX) < spriteS.width / 2) && (fabs(spriteY - mouseY) < spriteS.height / 2))
+	if ((fabs(spriteX - mouseX)< (spriteS.width) / 2) && (fabs(spriteY - mouseY) < (spriteS.height) / 2))
 	{
 		auto _mouseListener = EventListenerMouse::create();
 		event->stopPropagation();//吞没事件，不让下层监听
@@ -86,4 +84,38 @@ void Card::onMouseUp(Event* event, EventListenerMouse* listener)
 int Card::getIdentification()
 {
 	return identification;
+}
+
+int Card::getCardLv()
+{
+	return cardLv;
+}
+
+void Card::setCardLv(int CardLv)
+{
+	cardLv = CardLv;
+
+	return;
+}
+
+void Card::setIdentification(int Identification)
+{
+	identification = Identification;
+
+	return;
+}
+
+void Card::showStar()
+{
+	for (int i = 0; i < cardLv ; i++)
+	{
+		auto star = Sprite::create("star.jpg");
+
+		star->setPosition(Vec2(20 + i * 40, 20));
+		star->setScale(0.15f);
+		
+		this->addChild(star);
+	}
+
+	return;
 }

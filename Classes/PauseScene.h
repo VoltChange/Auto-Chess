@@ -6,8 +6,6 @@
 
 using namespace cocos2d;
 
-
-
 class PauseScene :public Scene
 {
 public:
@@ -17,13 +15,19 @@ public:
 
 	virtual bool init();
 
-private:
-	Vector<MenuItem*> menuItems;
-
 	void createMenu();
 	void createButtonLayer();
 	void createSliderLayer();
 	void createLabel();
+	void createCheckBox();
+
+	void sliderCallBack(Ref* pSender, cocos2d::ui::Slider::EventType type);
+
+private:
+
+
+
+	Vector<MenuItem*> menuItems;
 
 	void menuReturnCallBack(Ref* pSender);
 	

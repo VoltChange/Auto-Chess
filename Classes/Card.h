@@ -36,10 +36,14 @@ public:
 	int getIdentification();
 	int getCardLv();
 
+	void setCardLv(int CardLv);
+	void setIdentification(int Identification);
+
 	virtual void onMouseDown(Event* event);
 	virtual void onMouseMove(Event* event, EventListenerMouse* listener);
 	virtual void onMouseUp(Event* event, EventListenerMouse* listener);
 
+	void showStar();
 private:
 	string name;
 	int originalX, originalY;

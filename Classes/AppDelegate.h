@@ -32,9 +32,14 @@
 
 Private inheritance here hides part of interface from Director.
 */
+
+static int musicID1;
+static bool soundEffectSign = true;
+
 class  AppDelegate : private cocos2d::Application
 {
 public:
+ 
     AppDelegate();
     virtual ~AppDelegate();
 

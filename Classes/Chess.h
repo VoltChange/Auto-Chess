@@ -39,44 +39,44 @@ public:
 	void SetMovemark();
 	void SetMoveTime();
 	void AtkTargetInit(Chess* data);
-	double CountTheDistance(Vec2 position1, Vec2 position2);//è®¡ç®—ä¸¤ä¸ªåæ ‡ä¹‹é—´çš„è·ç¦»
+	double CountTheDistance(Vec2 position1, Vec2 position2);//¼ÆËãÁ½¸ö×ø±êÖ®¼äµÄ¾àÀë
 	void SetDead(int);
 	void SetOn(int);
 	void PointInit();
-	void AttackTo(Vec2 position);//ç”Ÿæˆæ”»å‡»ç‰©ç§»åŠ¨è‡³ç›®æ ‡ä½ç½®ï¼Œå¯èƒ½éœ€æ±‚å†™ä¸€ä¸ªæ”»å‡»ç‰©ç±»ï¼Œå‚ç…§æœ¬ç±»å†™æ³•ï¼Œæ”»å‡»ç‰©ç±»åº”æœ‰æ”»å‡»ç‰©çš„é£è¡Œé€Ÿåº¦
-	void AttackTarget();//æ”»å‡»å‡½æ•°ï¼Œä¼ å…¥ä¸€ä¸ªç›®æ ‡æ£‹å­çš„æŒ‡é’ˆï¼Œè·å–ç›®æ ‡æ£‹å­çš„ä½ç½®ï¼Œè°ƒç”¨ä¸Šé¢çš„å‡½æ•°ç”Ÿæˆä¸€ä¸ªæ”»å‡»ç‰©ç§»åŠ¨è‡³ç›®æ ‡æ£‹å­ä½ç½®ï¼Œåˆ°è¾¾åç›®æ ‡æ——å­æ‰£è¡€
+	void AttackTo(Vec2 position);//Éú³É¹¥»÷ÎïÒÆ¶¯ÖÁÄ¿±êÎ»ÖÃ£¬¿ÉÄÜĞèÇóĞ´Ò»¸ö¹¥»÷ÎïÀà£¬²ÎÕÕ±¾ÀàĞ´·¨£¬¹¥»÷ÎïÀàÓ¦ÓĞ¹¥»÷ÎïµÄ·ÉĞĞËÙ¶È
+	void AttackTarget();//¹¥»÷º¯Êı£¬´«ÈëÒ»¸öÄ¿±êÆå×ÓµÄÖ¸Õë£¬»ñÈ¡Ä¿±êÆå×ÓµÄÎ»ÖÃ£¬µ÷ÓÃÉÏÃæµÄº¯ÊıÉú³ÉÒ»¸ö¹¥»÷ÎïÒÆ¶¯ÖÁÄ¿±êÆå×ÓÎ»ÖÃ£¬µ½´ïºóÄ¿±êÆì×Ó¿ÛÑª
 	void ReduceHp(double atk);
 	void Reverse(int);
-	void MoveTo(Vec2 position);//æ£‹å­ç§»åŠ¨è‡³ç›®æ ‡ä½ç½®
-	void MoveTarget(Chess* target);//æ ¹æ®ç›®æ ‡æ£‹å­ä½ç½®å†³å®šè¦ç§»åŠ¨åˆ°çš„ä½ç½®
-	void Test(cocos2d::Ref* pSender);//ç”¨äºè°ƒè¯•çš„å›è°ƒå‡½æ•°
+	void MoveTo(Vec2 position);//Æå×ÓÒÆ¶¯ÖÁÄ¿±êÎ»ÖÃ
+	void MoveTarget(Chess* target);//¸ù¾İÄ¿±êÆå×ÓÎ»ÖÃ¾ö¶¨ÒªÒÆ¶¯µ½µÄÎ»ÖÃ
+	void Test(cocos2d::Ref* pSender);//ÓÃÓÚµ÷ÊÔµÄ»Øµ÷º¯Êı
 	virtual	void update(float dt);
 	Chess* ShowTarget();
-	void destroy();//é”€æ¯updateçš„åŒ…è£…æ–¹æ³•
+	void destroy();//Ïú»ÙupdateµÄ°ü×°·½·¨
 	void setdatafromcard(card);
 	void setatkptrimage();
 private:
 	double healthpoint;       //HP
-	double attack;            //æ”»å‡»åŠ›
-	double atkspeed;          //æ”»å‡»é€Ÿåº¦
-	double movespeed;         //ç§»åŠ¨é€Ÿåº¦
-	double defence;           //é˜²å¾¡åŠ›
-	double atkrange;          //æ”»å‡»è·ç¦»
-	double flyspeed;          //æ”»å‡»ç‰©çš„é£è¡Œé€Ÿåº¦
-	std::string name;         //å¡ç‰Œå
-	Attack* p_attack;         //æ”»å‡»ç‰©æŒ‡é’ˆ
-	double standard_atktimer;    //è®¡æ•°å™¨æ ‡å‡†//atktimer=atkspeed*60;
-	double standard_movetimer;   //è®¡æ•°å™¨//
-	double atktimer;             //çœŸæ­£å®ç°è®¡æ—¶å™¨åŠŸèƒ½
+	double attack;            //¹¥»÷Á¦
+	double atkspeed;          //¹¥»÷ËÙ¶È
+	double movespeed;         //ÒÆ¶¯ËÙ¶È
+	double defence;           //·ÀÓùÁ¦
+	double atkrange;          //¹¥»÷¾àÀë
+	double flyspeed;          //¹¥»÷ÎïµÄ·ÉĞĞËÙ¶È
+	std::string name;         //¿¨ÅÆÃû
+	Attack* p_attack;         //¹¥»÷ÎïÖ¸Õë
+	double standard_atktimer;    //¼ÆÊıÆ÷±ê×¼//atktimer=atkspeed*60;
+	double standard_movetimer;   //¼ÆÊıÆ÷//
+	double atktimer;             //ÕæÕıÊµÏÖ¼ÆÊ±Æ÷¹¦ÄÜ
 	double movetimer;
-	int atkmark;              //è®°å½•æ˜¯å¦åœ¨æ”»å‡»//0ä»£è¡¨æœªæ”»å‡» 1ä»£è¡¨æ”»å‡»ä¸­
-	int movemark;             //è®°å½•æ˜¯å¦åœ¨ç§»åŠ¨//0ä»£è¡¨æœªç§»åŠ¨ 1ä»£è¡¨ç§»åŠ¨ä¸­
-	double move_time;        //ç§»åŠ¨éœ€è¦èŠ±è´¹çš„æ—¶é—´//è®°å¾—åˆå§‹åŒ–
-	Chess* atktarget;         //å­˜æ”¾ç›®æ ‡æ£‹å­
+	int atkmark;              //¼ÇÂ¼ÊÇ·ñÔÚ¹¥»÷//0´ú±íÎ´¹¥»÷ 1´ú±í¹¥»÷ÖĞ
+	int movemark;             //¼ÇÂ¼ÊÇ·ñÔÚÒÆ¶¯//0´ú±íÎ´ÒÆ¶¯ 1´ú±íÒÆ¶¯ÖĞ
+	double move_time;        //ÒÆ¶¯ĞèÒª»¨·ÑµÄÊ±¼ä//¼ÇµÃ³õÊ¼»¯
+	Chess* atktarget;         //´æ·ÅÄ¿±êÆå×Ó
 	/// /////////////////////////////////////////////////////////////////////
-	int isdead;               //è®°å½•æ˜¯å¦æ­»äº¡
-	int ison;                 //è®°å½•æ˜¯å¦ä¸Šåœº
-	int isupdate = 0;       //è®°å½•æ˜¯å¦åœ¨æ‰§è¡Œupdate
+	int isdead;               //¼ÇÂ¼ÊÇ·ñËÀÍö
+	int ison;                 //¼ÇÂ¼ÊÇ·ñÉÏ³¡
+	int isupdate = 0;       //¼ÇÂ¼ÊÇ·ñÔÚÖ´ĞĞupdate
 };
 
 #endif

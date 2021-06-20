@@ -27,7 +27,7 @@ public:
 	virtual	void update(float dt);
 	void step(float dt);//改变时间
 	void setchessdata();//设置棋子数据
-	void setplayersptr(Play*,Play*);//设置玩家指针
+	void setplayersptr(Play*, Play*);//设置玩家指针
 	void enemygenerate();//生成敌方卡牌
 private:
 	Chess* self[MaxSquares];

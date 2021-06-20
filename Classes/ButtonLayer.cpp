@@ -1,6 +1,7 @@
 #include"ButtonLayer.h"
 #include"PauseScene.h"
 #include"GameScene.h"
+#include "AudioEngine.h"
 
 Layer* ButtonLayer::createLayer()
 {
@@ -22,12 +23,16 @@ bool ButtonLayer::init()
 
 void ButtonLayer::menuStartCallback(Ref* pSender)
 {
+	if (soundEffectSign)
+		AudioEngine::play2d("buttonDown.mp3", false);
 	Director::getInstance()->replaceScene(GameScene::create());
 	return;
 }
 
 void ButtonLayer::menuCloseCallback(Ref* pSender)
 {
+	if (soundEffectSign)
+		AudioEngine::play2d("buttonDown.mp3", false);
 	//Close the cocos2d-x game scene and quit the application
 	Director::getInstance()->end();
 
@@ -36,16 +41,9 @@ void ButtonLayer::menuCloseCallback(Ref* pSender)
 
 void ButtonLayer::menuPauseCallback(Ref* pSender)
 {
+	if (soundEffectSign)
+		AudioEngine::play2d("buttonDown.mp3", false);
 	Director::getInstance()->pushScene(PauseScene::create());
-	return;
-}
-
-void ButtonLayer::menuMusicCallback(Ref* pSender)
-{
-	if (true)//musicOn
-		;
-	else//musicOff
-		;
 	return;
 }
 
@@ -66,13 +64,19 @@ void ButtonLayer::createButtons()
 	musicItem = cocos2d::ui::Button::create("musicOn.jpg", "musicOff.jpg", "musicOff.jpg");
 	musicItem->addClickEventListener([this](Ref* pSender) {
 		cocos2d::ui::Button* button = dynamic_cast<cocos2d::ui::Button*>(pSender);
-		if (true)//musicOn
+		if (musicSign)//musicOn
 		{
+			musicSign = false;
+			soundEffectSign = false;
+			AudioEngine::pauseAll();
 			button->loadTextures("musicOff.jpg", "musicOff.jpg", "musicOff.jpg");
 			;//turn off music
 		}
 		else//musicOff
 		{
+			musicSign = true;
+			soundEffectSign = true;
+			AudioEngine::resumeAll();
 			button->loadTextures("musicOn.jpg", "musicOn.jpg", "musicOn.jpg");
 			;//turn on music
 		}

@@ -9,6 +9,7 @@
 
 using namespace cocos2d;
 
+
 class MainMenu :public Scene
 {
 public:

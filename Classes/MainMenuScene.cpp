@@ -1,9 +1,10 @@
 #include"MainMenuScene.h"
-//#include"HelloWorldScene.h"
+#include"HelloWorldScene.h"
 #include"GameScene.h"
 #include"PauseScene.h"
 //#include"cocos2d.h"
 #include<iostream>
+#include "AudioEngine.h"
 
 // Print useful error message instead of segfaulting when files are not there.
 static void problemLoading(const char* filename)
