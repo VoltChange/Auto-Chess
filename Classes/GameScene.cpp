@@ -92,7 +92,7 @@ void GameScene::update(float dt)
 		auto label1 = Label::createWithTTF("LOSE", "fonts/Marker Felt.ttf", 140);
 		label1->setPosition(Vec2(960, 540));
 		lose->addChild(label1);
-		Director::getInstance()->runWithScene(lose);
+		Director::getInstance()->pushScene(lose);
 
 		this->unscheduleUpdate();
 	}
@@ -103,7 +103,7 @@ void GameScene::update(float dt)
 			auto label1 = Label::createWithTTF("WIN", "fonts/Marker Felt.ttf", 140);
 			label1->setPosition(Vec2(960, 540));
 			win->addChild(label1);
-			Director::getInstance()->runWithScene(win);
+			Director::getInstance()->pushScene(win);
 
 			this->unscheduleUpdate();
 		}

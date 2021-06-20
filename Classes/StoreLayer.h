@@ -5,6 +5,12 @@
 #include "ui/CocosGUI.h"
 #include"Play.h"
 #include"Card.h"
+#include<map>
+#include"PauseScene.h"
+#include"Card.h"
+#include"Play.h"
+#include "AudioEngine.h"
+#include"ButtonLayer.h"
 
 using namespace cocos2d;
 //for cardItem[]

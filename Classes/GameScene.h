@@ -8,6 +8,7 @@
 #include"StoreLayer.h"
 #include"Card.h"
 #include"BattleLayer.h"
+#include<vector>
 using namespace cocos2d;
 
 class GameScene :public Scene {

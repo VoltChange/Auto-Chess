@@ -1,9 +1,5 @@
-﻿#include<map>
-#include"StoreLayer.h"
-#include"PauseScene.h"//for test,need delete
-#include"Card.h"
-#include"Play.h"
-#include "AudioEngine.h"
+﻿#include"StoreLayer.h"
+
 #define schedule_selector(_SELECTOR) static_cast<cocos2d::SEL_SCHEDULE>(&_SELECTOR)
 
 bool StoreLayer::init()
@@ -287,6 +283,8 @@ void StoreLayer::sellCardUpdate(float dt)
 			if (spriteX >= 1445 && spriteX <= 1725 && spriteY >= 60 && spriteY <= 180)
 			{
 				this->onDisplayEquipments[i]->setVisible(0);
+				this->player->sellequip(i);
+				this->preparingAreaOfEquipment[i] = false;
 			}
 		}
 		if (this->preparingAreaOfSprite[i])
@@ -296,6 +294,8 @@ void StoreLayer::sellCardUpdate(float dt)
 			if (spriteX >= 1445 && spriteX <= 1725 && spriteY >= 60 && spriteY <= 180)
 			{
 				this->onDisplayCards[i]->setVisible(0);
+				this->player->sellhero(i);
+				this->preparingAreaOfSprite[i] = false;
 			}
 		}
 
@@ -330,6 +330,7 @@ void StoreLayer::cardLevelUp()
 		{
 			if (cards[i][j] == 3)
 			{
+				this->player->addlv(j, i + 1);
 				for (int k = 0; k < 6; k++)
 				{
 					if (preparingAreaOfSprite[k])

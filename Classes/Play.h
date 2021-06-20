@@ -89,8 +89,8 @@ public:
 	bool refreshStore();//for refresh store
 	bool reduceMoneyForEquipment(int Money, int equipmentNumber, int equipmentPosition);//买装备
 	bool reduceMoneyForCard(int Money, int cardNumber);//买卡牌
-	int onforNumber(cards* myCard, int cardNumber, int cardlv);//寻找场上的角色的编号
-	bool addlv(int cardNumber, int cardlv, cards* myCard);//升级卡牌
+	int onforNumber(int cardNumber, int cardlv);//寻找场上的角色的编号
+	bool addlv(int cardNumber, int cardlv);//升级卡牌
 	void reducehp();//扣血
 	int getm_lv();//访问血量
 	int getm_hp();
@@ -98,4 +98,6 @@ public:
 	int getEXP();
 	cards getMyCard();
 	cards getMyEquipment();
+	void sellequip(int);
+	void sellhero(int);
 };

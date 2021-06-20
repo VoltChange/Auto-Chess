@@ -23,7 +23,6 @@
  ****************************************************************************/
 
 #include "AppDelegate.h"
-#include "HelloWorldScene.h"
 #include "MainMenuScene.h"
 #include"GameScene.h"
 #include "AudioEngine.h"

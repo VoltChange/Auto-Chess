@@ -1,5 +1,4 @@
 #include"MainMenuScene.h"
-#include"HelloWorldScene.h"
 #include"GameScene.h"
 #include"PauseScene.h"
 //#include"cocos2d.h"

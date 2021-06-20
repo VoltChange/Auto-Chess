@@ -8,7 +8,7 @@ bool Play::init()
 		return false;
 	}
 	this->m_hp = 100;
-	this->m_lv = 6;
+	this->m_lv = 1;
 	this->m_money = 100;
 	this->permitOnSize = 1;
 
@@ -21,9 +21,14 @@ void Play::addMoney(int Money) {            //金币加
 
 bool Play::reduceMoneyForLv(int Money) {
 	if (this->m_money >= Money) {                 //判断手中的钱够不够，如果手中的钱够等级加加，如果手中的钱不够返回假
-		this->m_money = this->m_money - Money;
-		this->m_lv = this->m_lv + 1;//原为this->m_lv = this->m_lv + E，不太懂
-		return true;
+		if (this->getm_lv() < 6)
+		{
+			this->m_money = this->m_money - Money;
+			this->m_lv = this->m_lv + 1;//原为this->m_lv = this->m_lv + E，不太懂
+			return true;
+		}
+		else
+			return false;
 	}
 	else
 		return false;
@@ -48,9 +53,17 @@ bool Play::judgeEXP() {//判断经验是不是足够升级
 bool Play::reduceMoneyForEquipment(int Money, int equipmentNumber, int equipmentPosition) {    //买装备
 	if (this->m_money >= Money&&this->myEquipment.onSize<6)         //判断钱是否足够
 	{
+		int i = 0;
+		for (i = 0; i < 6; i++)
+		{
+			if (!myCard.onCard[i].IsOn())
+				break;
+		}
+		if (i >= 6)
+			return false;
 		this->m_money = this->m_money - Money;
-		myEquipment.onCard[myEquipment.onSize].initialize(equipmentNumber);
-		myEquipment.onCard[myEquipment.onSize].SetOn(1);//设为上场
+		myEquipment.onCard[i].initialize(equipmentNumber);
+		myEquipment.onCard[i].SetOn(1);//设为上场
 		myEquipment.onSize++;
 		return true;
 	}
@@ -63,9 +76,17 @@ bool Play::reduceMoneyForEquipment(int Money, int equipmentNumber, int equipment
 bool Play::reduceMoneyForCard(int Money, int cardNumber) {          //买角色
 	if (this->m_money >= Money&&this->myCard.onSize<6)     //判断钱是否足够
 	{
+		int i = 0;
+		for (i = 0; i < 6; i++)
+		{
+			if (!myCard.onCard[i].IsOn())
+				break;
+		}
+		if (i >= 6)
+			return false;
 		this->m_money = this->m_money - Money;
-		this->myCard.onCard[this->myCard.onSize].initialize(cardNumber);
-		this->myCard.onCard[this->myCard.onSize].SetOn(1);//设为上场
+		this->myCard.onCard[i].initialize(cardNumber);
+		this->myCard.onCard[i].SetOn(1);//设为上场
 		this->myCard.onSize++;
 		return true;
 	}
@@ -73,10 +94,10 @@ bool Play::reduceMoneyForCard(int Money, int cardNumber) {          //买角色
 		return false;
 }
 
-int Play::onforNumber(cards* myCard, int cardNumber, int cardlv) {
-	for (int i = 0; i < myCard->onSize; i++)
+int Play::onforNumber( int cardNumber, int cardlv) {
+	for (int i = 0; i < myCard.onSize; i++)
 	{
-		if (myCard->onCard[i].getIdentification() == cardNumber && myCard->onCard[i].getLv() == cardlv)
+		if (myCard.onCard[i].getIdentification() == cardNumber && myCard.onCard[i].getLv() == cardlv&& myCard.onCard[i].IsOn())
 		{
 			return i;
 		}
@@ -85,16 +106,17 @@ int Play::onforNumber(cards* myCard, int cardNumber, int cardlv) {
 	return -1;
 }
 
-bool Play::addlv(int cardNumber, int cardlv, cards* myCard) {   //升级卡牌
+bool Play::addlv(int cardNumber, int cardlv) {   //升级卡牌
 	if (cardlv < 3) {
-		int ret1 = Play::onforNumber(myCard, cardNumber, cardlv);
-		myCard->onCard[ret1].setLv(myCard->onCard[ret1].getLv() + 1);
-		int ret2 = Play::onforNumber(myCard, cardNumber, cardlv);
-		for (int i = ret2; i < myCard->onSize; i++)//对场下数组中相应角色进行删除操作
-		{
-			myCard->onCard[i] = myCard->onCard[i + 1];
-		}
-		myCard->onSize--;
+		int ret1 = Play::onforNumber(cardNumber, cardlv);
+		myCard.onCard[ret1].setLv(myCard.onCard[ret1].getLv() + 1);
+		int ret2 = Play::onforNumber(cardNumber, cardlv);
+		myCard.onCard[ret2].SetOn(0);
+		int ret3 = Play::onforNumber(cardNumber, cardlv);
+		//对场下数组中相应角色进行删除操作
+		myCard.onCard[ret3].SetOn(0);
+		myCard.onSize--;
+		myCard.onSize--;
 		return true;
 	}
 	else
@@ -411,4 +433,14 @@ bool Play::refreshStore()
 		return true;
 	}
 	return false;
+}
+void Play::sellhero(int num)
+{
+	this->myCard.onCard[num].SetOn(0);
+	this->myCard.onSize--;
+}
+void Play::sellequip(int num)
+{
+	this->myEquipment.onCard[num].SetOn(0);
+	this->myEquipment.onSize--;
 }

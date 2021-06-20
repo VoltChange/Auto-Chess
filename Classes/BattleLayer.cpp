@@ -221,7 +221,8 @@ void BattleLayer::end()
 				player_me->reducehp();
 			}
 			this->destroy();//销毁所有update
-			//this->setVisible(0);
+			this->allinvisible();
+			this->setVisible(0);
 			isbattle = 0;
 		}
 	}
@@ -292,17 +293,24 @@ void BattleLayer::destroy()
 }
 void BattleLayer::startup()
 {
-	time = 0.0f;//计时重置
-	this->setVisible(1);//设置可见
 	this->reset();//重置棋子状态
-	//this->test();
 	this->enemygenerate();
 	this->setchessdata();
-	this->imageinit();//加载场上棋子图片资源
-	this->onbattle(); //棋子上场
-	this->start();
-	this->scheduleUpdate();
-	this->schedule(CC_CALLBACK_1(BattleLayer::step, this), "step_key");
+	if (canbattle())
+	{
+		time = 0.0f;//计时重置
+		this->setVisible(1);//设置可见
+		
+		//this->test();
+
+		
+		this->imageinit();//加载场上棋子图片资源
+		this->onbattle(); //棋子上场
+		this->start();
+		this->scheduleUpdate();
+		this->schedule(CC_CALLBACK_1(BattleLayer::step, this), "step_key");
+
+	}
 
 }
 void BattleLayer::step(float dt)
@@ -364,6 +372,41 @@ void BattleLayer::setplayersptr(Play* ptr1, Play* ptr2)
 }
 void BattleLayer::enemygenerate()
 {
-	player_en->reduceMoneyForCard(0, 0);
+	static int i = 0;
+	if (i < 6)
+	{
+		player_en->reduceMoneyForLv(0);
+		player_en->reduceMoneyForCard(0, i);
+		i++;
+	}
 
+}
+void BattleLayer::allinvisible()
+{
+	for (int i = 0;i<6; i++)
+	{
+			self[i]->setVisible(0);
+			enemy[i]->setVisible(0);
+	}
+}
+int BattleLayer::canbattle()
+{
+	const int LvS = player_me->getm_lv();
+	const int LvE = player_en->getm_lv();
+	int myon = 0;//????????????????????????????????
+	int enon = 0;
+	for (int i = 0; i < LvS; i++)
+	{
+		if (self[i]->IsOn())
+			myon++;
+	}
+	for (int i = 0; i < LvE; i++)
+	{
+		if (enemy[i]->IsOn())
+			enon++;
+	}
+	if (myon == 0 || enon == 0)
+		return 0;
+	else
+		return 1;
 }

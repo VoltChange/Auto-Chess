@@ -29,6 +29,8 @@ public:
 	void setchessdata();//设置棋子数据
 	void setplayersptr(Play*, Play*);//设置玩家指针
 	void enemygenerate();//生成敌方卡牌
+	void allinvisible();//全部设置不可见
+	int canbattle();//判断是否可开战
 private:
 	Chess* self[MaxSquares];
 	Chess* enemy[MaxSquares];
