@@ -46,7 +46,7 @@ bool Play::judgeEXP() {//ÅÐ¶Ï¾­ÑéÊÇ²»ÊÇ×ã¹»Éý¼¶
 }
 
 bool Play::reduceMoneyForEquipment(int Money, int equipmentNumber, int equipmentPosition) {    //Âò×°±¸
-	if (this->m_money >= Money)         //ÅÐ¶ÏÇ®ÊÇ·ñ×ã¹»
+	if (this->m_money >= Money&&this->myEquipment.onSize<6)         //ÅÐ¶ÏÇ®ÊÇ·ñ×ã¹»
 	{
 		this->m_money = this->m_money - Money;
 		myEquipment.onCard[myEquipment.onSize].initialize(equipmentNumber);
@@ -61,7 +61,7 @@ bool Play::reduceMoneyForEquipment(int Money, int equipmentNumber, int equipment
 }
 
 bool Play::reduceMoneyForCard(int Money, int cardNumber) {          //Âò½ÇÉ«
-	if (this->m_money >= Money)     //ÅÐ¶ÏÇ®ÊÇ·ñ×ã¹»
+	if (this->m_money >= Money&&this->myCard.onSize<6)     //ÅÐ¶ÏÇ®ÊÇ·ñ×ã¹»
 	{
 		this->m_money = this->m_money - Money;
 		this->myCard.onCard[this->myCard.onSize].initialize(cardNumber);
@@ -397,4 +397,18 @@ cards Play::getMyCard()
 cards Play::getMyEquipment()
 {
 	return myEquipment;
+}
+void Play::reducehp()
+{
+	this->m_hp -= 40;
+}
+
+bool Play::refreshStore()
+{
+	if (this->m_money >= 3)
+	{
+		this->m_money -= 3;
+		return true;
+	}
+	return false;
 }

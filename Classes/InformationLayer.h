@@ -2,6 +2,7 @@
 
 #include"cocos2d.h"
 #include "ui/CocosGUI.h"
+#include"Play.h"
 
 using namespace cocos2d;
 
@@ -14,7 +15,21 @@ public:
 
 	static Layer* createLayer();
 
+	void setplayerptr(Play*);
+
+
+	void displayNum();
+
+	void dataUpdate(float dt);
+
 private:
+	Play* player;
+
+	cocos2d::ui::LoadingBar* hpBar;
+
+	Label* lv;
+	Label* money;
+
 	void displayLv();
 
 	void displayHp();
@@ -23,5 +38,4 @@ private:
 
 	void displayStore();
 
-	
 };

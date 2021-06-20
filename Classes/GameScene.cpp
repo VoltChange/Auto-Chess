@@ -1,4 +1,4 @@
-#include"GameScene.h"
+ï»¿#include"GameScene.h"
 
 
 Scene* GameScene::createScene()
@@ -16,6 +16,7 @@ bool GameScene::init()
 	this->createButtons();
 	this->createStoreLayer();
 	this->creatBattleLayer();
+	this->scheduleUpdate();
 	return true;
 }
 
@@ -31,6 +32,8 @@ void GameScene::createMapLayer()
 void GameScene::createInformationLayer()
 {
 	auto informationLayer = InformationLayer::create();
+	informationLayer->setplayerptr(playerme);
+	informationLayer->displayNum();
 	this->addChild(informationLayer, 3);
 	return;
 }
@@ -47,7 +50,7 @@ void GameScene::createButtons()
 void GameScene::createStoreLayer()
 {
 	StoreLayer* storeLayer = StoreLayer::create();
-	storeLayer->setplayerptr(playerme);//°ó¶¨Íæ¼ÒÖ¸Õë
+	storeLayer->setplayerptr(playerme);//ç»‘å®šçŽ©å®¶æŒ‡é’ˆ
 	this->addChild(storeLayer, 4);
 	return;
 }
@@ -75,8 +78,33 @@ void GameScene::creatBattleLayer()
 		CC_CALLBACK_0(BattleLayer::startup, battlelayer));
 	startItem->setScale(0.25);
 	auto menu = Menu::create(startItem, NULL);
-	menu->setPosition(Vec2(500,170));
+	menu->setPosition(Vec2(500, 170));
 	this->addChild(menu, 5);
-	this->addChild(battlelayer,5);
+	this->addChild(battlelayer, 5);
 
+}
+////////////////////////////////////////
+void GameScene::update(float dt)
+{
+	if (playerme->getm_hp() <= 0)
+	{
+		auto lose = Scene::create();
+		auto label1 = Label::createWithTTF("LOSE", "fonts/Marker Felt.ttf", 140);
+		label1->setPosition(Vec2(960, 540));
+		lose->addChild(label1);
+		Director::getInstance()->runWithScene(lose);
+
+		this->unscheduleUpdate();
+	}
+	else
+		if (playeren->getm_hp() <= 0)
+		{
+			auto win = Scene::create();
+			auto label1 = Label::createWithTTF("WIN", "fonts/Marker Felt.ttf", 140);
+			label1->setPosition(Vec2(960, 540));
+			win->addChild(label1);
+			Director::getInstance()->runWithScene(win);
+
+			this->unscheduleUpdate();
+		}
 }

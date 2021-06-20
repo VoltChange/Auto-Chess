@@ -86,10 +86,12 @@ public:
 	void addMoney(int Money);	//金币加
 	bool reduceMoneyForLv(int Money);//买经验
 	bool judgeEXP();	 //判断经验是不是可以升级
+	bool refreshStore();//for refresh store
 	bool reduceMoneyForEquipment(int Money, int equipmentNumber, int equipmentPosition);//买装备
 	bool reduceMoneyForCard(int Money, int cardNumber);//买卡牌
 	int onforNumber(cards* myCard, int cardNumber, int cardlv);//寻找场上的角色的编号
 	bool addlv(int cardNumber, int cardlv, cards* myCard);//升级卡牌
+	void reducehp();//扣血
 	int getm_lv();//访问血量
 	int getm_hp();
 	int getm_money();
