@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 #include<iostream>
 #include<vector>
 #include<string.h>
@@ -52,7 +51,7 @@ public:
 	int IsOn();
 	void SetOn(int);
 
-	
+
 	double getHealthpoint() { return healthpoint; }
 	double getAttack() { return attack; }
 	double getAtkSpeed() { return atkspeed; }
@@ -69,7 +68,7 @@ public:
 	class card onCard[MAX];
 	int onSize = 0;
 };
-class Play :public cocos2d :: Sprite
+class Play :public cocos2d::Sprite
 {
 public:
 	CREATE_FUNC(Play);

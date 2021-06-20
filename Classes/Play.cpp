@@ -105,53 +105,53 @@ void card::initialize(int identification)
 {
 	switch (identification)
 	{
-	case 0:
-	{
-		setFireDragonData();
-		break;
-	}
-	case 1:
-	{
-		setFireSlimeData();
-		break;
-	}
-	case 2:
-	{
-		setGoldSlimeData();
-		break;
-	}
-	case 3:
-	{
-		setMetalSlimeData();
-		break;
-	}
-	case 4:
-	{
-		setShitSlimeData();
-		break;
-	}
-	case 5:
-	{
-		setHeLinData();
-		break;
-	}
-	case 6:
-	{
-		setBowData();
-		break;
-	}
-	case 7:
-	{
-		setSwordData();
-		break;
-	}
-	case 8:
-	{
-		setShieldData();
-		break;
-	}
-	default:
-		break;
+		case 0:
+		{
+			setFireDragonData();
+			break;
+		}
+		case 1:
+		{
+			setFireSlimeData();
+			break;
+		}
+		case 2:
+		{
+			setGoldSlimeData();
+			break;
+		}
+		case 3:
+		{
+			setMetalSlimeData();
+			break;
+		}
+		case 4:
+		{
+			setShitSlimeData();
+			break;
+		}
+		case 5:
+		{
+			setHeLinData();
+			break;
+		}
+		case 6:
+		{
+			setBowData();
+			break;
+		}
+		case 7:
+		{
+			setSwordData();
+			break;
+		}
+		case 8:
+		{
+			setShieldData();
+			break;
+		}
+		default:
+			break;
 	}
 }
 
@@ -382,7 +382,7 @@ int Play::getm_hp()
 {
 	return this->m_hp;
 }
-int Play::getm_money() 
+int Play::getm_money()
 {
 	return this->m_money;
 }
@@ -398,4 +398,3 @@ cards Play::getMyEquipment()
 {
 	return myEquipment;
 }
-

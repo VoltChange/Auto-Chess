@@ -38,8 +38,8 @@ public:
 
 	Menu* storeItems;
 
-	Card *onDisplayCards[6];
-	Card *onDisplayEquipments[6];
+	Card* onDisplayCards[6];
+	Card* onDisplayEquipments[6];
 
 	const std::string photoName[9] = { "firedragon",
 									   "fireslime" ,
@@ -51,7 +51,7 @@ public:
 									   "sword",
 									   "shield" };
 
-	void createMenuItemOfCards(std::vector<int>&allCards);
+	void createMenuItemOfCards(std::vector<int>& allCards);
 
 	void purchaseCardCallBack0(Ref* pSender);
 	void purchaseCardCallBack1(Ref* pSender);
@@ -61,9 +61,10 @@ public:
 	void refreshCardWithCoins(Ref* pSender);
 	void buyEXPWithCoins(Ref* pSender);
 
-	
+
 
 	void sendCardsToPreparingArea(int position);
+	void cardLevelUp();
 
 	void sellCardUpdate(float dt);
 
